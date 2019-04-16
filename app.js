@@ -110,7 +110,7 @@ app.use("/compras",routerUsuarioSession);
 //Aplicar routerUsuarioSession
 app.use("/home",routerUsuarioSession);
 app.use("/usuario/lista",routerUsuarioSession);
-app.use("/oferta/agregar",routerUsuarioSession);
+app.use("/oferta/*",routerUsuarioSession);
 
 
 //routerUsuarioAutor

@@ -3,8 +3,17 @@ module.exports = function(app,swig,gestorBD) {
         res.send("ver ofertas");
     });
     app.get("/oferta/agregar", function(req, res) {
-        var respuesta = swig.renderFile('views/bnuevaoferta.html', {});
+        var infoNav = {"email" : req.session.usuario, "tipo": req.session.tipo, "dinero": req.session.dinero};
+        var respuesta = swig.renderFile('views/bofertanueva.html', infoNav);
         res.send(respuesta);
+    });
+    app.get("/oferta/lista", function(req, res) {
+        gestorBD.obtenerOfertas({"autor": req.session.usuario}, function(ofertas) {
+            var infoNav = {"email" : req.session.usuario, "tipo": req.session.tipo, "dinero": req.session.dinero,
+                        "ofertas": ofertas};
+            var respuesta = swig.renderFile('views/bofertalista.html', infoNav);
+            res.send(respuesta);
+        });
     });
     app.post("/oferta", function(req, res) {
         if(req.body.titulo.length > 0 & req.body.detalles.length > 0 & req.body.precio > 0){
@@ -27,4 +36,5 @@ module.exports = function(app,swig,gestorBD) {
             res.redirect("/oferta/agregar?mensaje=Existen campos vacios");
         }
     });
+
 };
