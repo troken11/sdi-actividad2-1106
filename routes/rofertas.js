@@ -3,17 +3,22 @@ module.exports = function(app,swig,gestorBD) {
         res.send("ver ofertas");
     });
     app.get("/oferta/agregar", function(req, res) {
-        var infoNav = {"email" : req.session.usuario, "tipo": req.session.tipo, "dinero": req.session.dinero};
-        var respuesta = swig.renderFile('views/bofertanueva.html', infoNav);
-        res.send(respuesta);
-    });
-    app.get("/oferta/lista", function(req, res) {
-        gestorBD.obtenerOfertas({"autor": req.session.usuario}, function(ofertas) {
-            var infoNav = {"email" : req.session.usuario, "tipo": req.session.tipo, "dinero": req.session.dinero,
-                        "ofertas": ofertas};
-            var respuesta = swig.renderFile('views/bofertalista.html', infoNav);
+        gestorBD.obtenerUsuarios({"email": req.session.usuario}, function(usuarios) {
+            var infoNav = {"email" : req.session.usuario, "tipo": "Normal", "dinero": usuarios[0].money};
+            var respuesta = swig.renderFile('views/bofertanueva.html', infoNav);
             res.send(respuesta);
         });
+    });
+    app.get("/oferta/lista", function(req, res) {
+        gestorBD.obtenerUsuarios({"email": req.session.usuario}, function(usuarios) {
+            gestorBD.obtenerOfertas({"autor": req.session.usuario}, function(ofertas) {
+                var infoNav = {"email" : req.session.usuario, "tipo": "Normal", "dinero": usuarios[0].money,
+                    "ofertas": ofertas};
+                var respuesta = swig.renderFile('views/bofertalista.html', infoNav);
+                res.send(respuesta);
+            });
+        });
+
     });
     app.post("/oferta", function(req, res) {
         if(req.body.titulo.length > 0 & req.body.detalles.length > 0 & req.body.precio > 0){
@@ -28,7 +33,7 @@ module.exports = function(app,swig,gestorBD) {
                 if(id==null){
                     res.redirect("/oferta/agregar?mensaje=No se ha podido añadir la oferta");
                 }else{
-                    res.redirect("/home");      //  oferta/lista
+                    res.redirect("/");      //  oferta/lista
                 }
             });
         }

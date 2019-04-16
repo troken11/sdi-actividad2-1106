@@ -60,28 +60,31 @@ module.exports = function(app, swig, gestorBD) {
                 res.redirect("/identificarse" + "?mensaje=Email o password incorrecto"+ "&tipoMensaje=alert-danger ");
             } else {
                 req.session.usuario=usuarios[0].email;
-                req.session.dinero=usuarios[0].money;
-                req.session.tipo=usuarios[0].type;
                 res.redirect("/home");
             }
         });
     });
     app.get('/desconectarse', function (req, res) {
         req.session.usuario = null;
-        req.session.dinero = null;
-        req.session.tipo = null;
         res.redirect("/identificarse");
     });
     app.get("/home", function(req, res) {
-        var infoNav = {"email" : req.session.usuario, "tipo": req.session.tipo, "dinero": req.session.dinero};
-        var respuesta = swig.renderFile('views/home.html', infoNav);
-        res.send(respuesta);
+        gestorBD.obtenerUsuarios({"email": req.session.usuario}, function(usuarios) {
+            var infoNav = {"email" : usuarios[0].email, "tipo": usuarios[0].type, "dinero": usuarios[0].money};
+            var respuesta = swig.renderFile('views/home.html', infoNav);
+            res.send(respuesta);
+        });
     });
-
+    app.get("/", function(req, res) {
+        if(req.session.usuario){
+            res.redirect("/home");
+        } else {
+            res.redirect("/identificarse");
+        }
+    });
     app.get("/usuario/lista", function(req, res) {
-        gestorBD.obtenerUsuarios({"type": "Normal"}, function(usuarios) {
-            var infoNav = {"email" : req.session.usuario, "tipo": req.session.tipo, "dinero": req.session.dinero
-                                    ,"usuarios": usuarios};
+        gestorBD.obtenerUsuarios({"type": "Normal"}, function(listaUsuarios) {
+            var infoNav = {"email" : req.session.usuario, "tipo": "Admin","usuarios": usuarios};
             var respuesta = swig.renderFile('views/listarUsuarios.html', infoNav);
             res.send(respuesta);
         });

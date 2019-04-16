@@ -6,9 +6,11 @@
     <li>
       {{ email }}
     </li>
+    {% if tipo=="Normal" %}
     <li>
       {{ dinero }} €
     </li>
+    {% endif %}
   </ul>
 </li>
 {% endblock %}
@@ -21,7 +23,6 @@
           class="caret"></span>
   </a>
   <ul class="dropdown-menu">
-    <li><a href="/user/add" id="add-users">Agregar usuario</a></li>
     <li><a href="/usuario/lista" id="list-users">Ver Usuarios</a></li>
   </ul>
 </li>
