@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block infonav %}
+<li>
+  <ul class="no-indent">
+    <li>
+      {{ email }}
+    </li>
+    <li>
+      {{ dinero }} €
+    </li>
+  </ul>
+</li>
+{% endblock %}
+
+{% block optionsnav %}
+{% if tipo=="Admin" %}
+<li id="users-menu" class="dropdown">
+  <a class="dropdown-toggle" id="menu-users"
+     data-toggle="dropdown" href="#"> Gestión de Usuarios <span
+          class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li><a href="/user/add" id="add-users">Agregar usuario</a></li>
+    <li><a href="/usuario/lista" id="list-users">Ver Usuarios</a></li>
+  </ul>
+</li>
+{% else %}
+<li id="items-menu" class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+    Gestión de ofertas <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" >
+    <li>
+      <a href="/item/add">Agregar oferta</a>
+    </li>
+    <li>
+      <a href="/item/list">Ver Ofertas</a>
+    </li>
+  </ul>
+</li>
+{% endif %}
+{% endblock %}
+
+{% block lognav %}
+<li>
+  <a href="/desconectarse">
+    <span class="glyphicon glyphicon-log-out"></span> Desconectar
+  </a>
+</li>
+{% endblock %}
+
+
+
+{% block contenido_principal %}
+
+{% endblock %}

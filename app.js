@@ -87,6 +87,7 @@ routerUsuarioToken.use(function(req, res, next) {
 
 var gestorBD = require("./modules/gestorBD.js");
 gestorBD.init(app,mongo);// routerUsuarioSession
+
 var routerUsuarioSession = express.Router();
 routerUsuarioSession.use(function(req, res, next) {
     console.log("routerUsuarioSession");
@@ -98,11 +99,17 @@ routerUsuarioSession.use(function(req, res, next) {
         res.redirect("/identificarse");
     }
 });
+
 //Aplicar routerUsuarioSession
 app.use("/canciones/agregar",routerUsuarioSession);
 app.use("/publicaciones",routerUsuarioSession);
 app.use("/cancion/comprar",routerUsuarioSession);
 app.use("/compras",routerUsuarioSession);
+
+
+//Aplicar routerUsuarioSession
+app.use("/home",routerUsuarioSession);
+app.use("/usuario/lista",routerUsuarioSession);
 
 
 //routerUsuarioAutor
@@ -169,7 +176,7 @@ require("./routes/rusuarios.js")(app,swig,gestorBD); // (app, param1, param2, et
 require("./routes/rofertas.js")(app,swig,gestorBD); // (app, param1, param2, etc.)
 
 app.get('/', function (req, res) {
-    res.redirect('/tienda');
+    res.redirect('/registrarse');
 });
 
 app.use( function (err, req, res, next ) {

@@ -1,0 +1,33 @@
+{% extends "home.html" %}
+
+{% block contenido_principal %}
+<div class="container">
+    <h2>Usuarios</h2>
+    <h3>Lista de usuarios</h3>
+    <form action='@{/user/list}' method="POST">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th class="col-md-1"></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.email }}</td>
+                    <td>{{ usuario.name }}</td>
+                    <td>{{ usuario.lastname }}</td>
+                    <td><input type="checkbox" value="{{usuario.email}}" id="{{usuario.email}}"/></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit" value="delete" class="btn btn-primary" id="delete">Eliminar seleccionados</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
