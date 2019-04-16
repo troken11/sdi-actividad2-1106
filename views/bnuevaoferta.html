@@ -1,48 +1,33 @@
 {% extends "base.html" %} 
 
-{% block titulo %} Registrar usuario {% endblock %} 
+{% block titulo %} Agregar nueva oferta {% endblock %}
 
 {% block contenido_principal %}
-  <h2>Registrar usuario</h2>
-  <form class="form-horizontal" method="post" action="/usuario" >
+  <h2>Agregar nueva oferta</h2>
+  <form class="form-horizontal" method="post" action="/oferta" >
     <div class="form-group">
-      <label class="control-label col-sm-2" for="email">Email:</label>
+      <label class="control-label col-sm-2" for="titulo">Titulo:</label>
       <div class="col-sm-10">
-        <input type="email" class="form-control" id="email" name="email"
-            placeholder="email@email.com" />
+        <input type="text" class="form-control" id="titulo" name="titulo"
+            placeholder="Titulo de oferta" />
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="password">Password:</label>
+      <label class="control-label col-sm-2" for="detalles">Detalles:</label>
       <div class="col-sm-10">          
-        <input type="password" class="form-control" id="password" name="password"
-        	placeholder="contraseña" />
+        <input type="text" class="form-control" id="detalles" name="detalles"
+        	placeholder="Contraseña" />
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="repassword">Repite password:</label>
+      <label class="control-label col-sm-2" for="precio">Precio:</label>
       <div class="col-sm-10">
-        <input type="password"  class="form-control" id="repassword" name="repassword"
-               placeholder="repite contraseña"  />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="name">Nombre:</label>
-      <div class="col-sm-10">
-        <input type="text"  class="form-control" id="name" name="name"
-               placeholder="nombre" />
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="lastname">Apellido:</label>
-      <div class="col-sm-10">
-        <input type="text"  class="form-control" id="lastname" name="lastname"
-               placeholder="apellido" />
+        <input type="number" class="form-control" id="precio" name="precio" min="0.00" step="0.01" />
       </div>
     </div>
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Registrar</button>
+        <button type="submit" class="btn btn-primary">Poner a la venta</button>
       </div>
     </div>
   </form>
