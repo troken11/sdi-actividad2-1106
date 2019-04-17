@@ -3,8 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="ba2603a2-ee55-497d-8977-f397d94f3035" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/gestorBD.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/gestorBD.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/rofertas.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rofertas.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/rusuarios.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rusuarios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/bofertalista.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/bofertalista.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/btienda.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/btienda.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/home.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,10 +22,19 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="305">
+              <caret line="74" column="20" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/rusuarios.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="457">
-              <caret line="81" column="40" selection-start-line="81" selection-start-column="40" selection-end-line="81" selection-end-column="40" />
+            <state relative-caret-position="401">
+              <caret line="80" column="16" lean-forward="true" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -30,8 +42,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/rofertas.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="67" selection-start-line="16" selection-start-column="67" selection-end-line="16" selection-end-column="67" />
+            <state relative-caret-position="61">
+              <caret line="32" column="69" selection-start-line="32" selection-start-column="69" selection-end-line="32" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -40,7 +52,7 @@
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="452">
-              <caret line="110" column="14" lean-forward="true" selection-start-line="110" selection-start-column="14" selection-end-line="110" selection-end-column="14" />
+              <caret line="110" column="14" selection-start-line="110" selection-start-column="14" selection-end-line="110" selection-end-column="14" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -52,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/views/listarUsuarios.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
-              <caret line="20" column="27" lean-forward="true" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="35" />
+              <caret line="20" column="27" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -60,8 +72,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/home.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+            <state relative-caret-position="386">
+              <caret line="39" column="8" lean-forward="true" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -69,8 +81,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/bofertalista.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="58" selection-start-line="23" selection-start-column="58" selection-end-line="23" selection-end-column="58" />
+            <state relative-caret-position="634">
+              <caret line="39" column="8" lean-forward="true" selection-start-line="6" selection-start-column="2" selection-end-line="39" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/btienda.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -88,7 +109,7 @@
         <entry file="file://$PROJECT_DIR$/views/bidentificacion.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
-              <caret line="22" column="35" lean-forward="true" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+              <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -127,24 +148,24 @@
         <option value="$PROJECT_DIR$/routes/rproductos.js" />
         <option value="$PROJECT_DIR$/public/css/main.css" />
         <option value="$PROJECT_DIR$/views/bnuevaoferta.html" />
-        <option value="$PROJECT_DIR$/views/btienda.html" />
-        <option value="$PROJECT_DIR$/modules/gestorBD.js" />
-        <option value="$PROJECT_DIR$/views/bofertalista.html" />
         <option value="$PROJECT_DIR$/views/bregistro.html" />
         <option value="$PROJECT_DIR$/views/bofertanueva.html" />
         <option value="$PROJECT_DIR$/views/bidentificacion.html" />
         <option value="$PROJECT_DIR$/views/listarUsuarios.html" />
-        <option value="$PROJECT_DIR$/views/home.html" />
         <option value="$PROJECT_DIR$/views/base.html" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/views/bofertalista.html" />
         <option value="$PROJECT_DIR$/routes/rusuarios.js" />
+        <option value="$PROJECT_DIR$/views/home.html" />
+        <option value="$PROJECT_DIR$/views/btienda.html" />
+        <option value="$PROJECT_DIR$/modules/gestorBD.js" />
         <option value="$PROJECT_DIR$/routes/rofertas.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="594" />
-    <option name="width" value="1331" />
+    <option name="width" value="1332" />
     <option name="height" value="1167" />
   </component>
   <component name="ProjectView">
@@ -152,6 +173,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -200,7 +222,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -259,7 +280,8 @@
       <option name="presentableId" value="Default" />
       <updated>1555340368004</updated>
       <workItem from="1555340369316" duration="11057000" />
-      <workItem from="1555422637303" duration="16796000" />
+      <workItem from="1555422637303" duration="17790000" />
+      <workItem from="1555490197922" duration="2643000" />
     </task>
     <task id="LOCAL-00001" summary="Creación del proyecto">
       <created>1555340854851</created>
@@ -296,11 +318,18 @@
       <option name="project" value="LOCAL" />
       <updated>1555438884256</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="session solo lleva email">
+      <created>1555455338911</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1555455338911</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27853000" />
+    <option name="totallyTimeSpent" value="31490000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -312,10 +341,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="594" y="0" width="1331" height="1167" extended-state="0" />
+    <frame x="594" y="0" width="1332" height="1167" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26063418" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26043278" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.32981783" />
@@ -344,7 +373,8 @@
     <MESSAGE value="Hasta listar usuarios" />
     <MESSAGE value="Agregar ofertas" />
     <MESSAGE value="Ver ofertas propias" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ver ofertas propias" />
+    <MESSAGE value="session solo lleva email" />
+    <option name="LAST_COMMIT_MESSAGE" value="session solo lleva email" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/package.json">
@@ -409,13 +439,6 @@
     <entry file="file://$PROJECT_DIR$/views/bcompras.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/bofertalista.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="58" selection-start-line="23" selection-start-column="58" selection-end-line="23" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/bregistro.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
@@ -430,69 +453,76 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/listarUsuarios.html">
+    <entry file="file://$PROJECT_DIR$/views/bidentificacion.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="27" lean-forward="true" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="62" column="55" selection-start-line="62" selection-start-column="55" selection-end-line="62" selection-end-column="55" />
+        <state relative-caret-position="374">
+          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
+        <state relative-caret-position="-356">
           <caret line="31" column="22" selection-start-line="31" selection-start-column="22" selection-end-line="31" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/bidentificacion.html">
+    <entry file="file://$PROJECT_DIR$/views/listarUsuarios.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="35" lean-forward="true" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+        <state relative-caret-position="340">
+          <caret line="20" column="27" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/rusuarios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="80" column="16" lean-forward="true" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/home.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/btienda.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="42" selection-start-line="30" selection-start-column="42" selection-end-line="30" selection-end-column="42" />
+        <state relative-caret-position="386">
+          <caret line="39" column="8" lean-forward="true" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="452">
-          <caret line="110" column="14" lean-forward="true" selection-start-line="110" selection-start-column="14" selection-end-line="110" selection-end-column="14" />
+          <caret line="110" column="14" selection-start-line="110" selection-start-column="14" selection-end-line="110" selection-end-column="14" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/rusuarios.js">
+    <entry file="file://$PROJECT_DIR$/views/bofertalista.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="457">
-          <caret line="81" column="40" selection-start-line="81" selection-start-column="40" selection-end-line="81" selection-end-column="40" />
+        <state relative-caret-position="634">
+          <caret line="39" column="8" lean-forward="true" selection-start-line="6" selection-start-column="2" selection-end-line="39" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/btienda.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="74" column="20" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/rofertas.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="67" selection-start-line="16" selection-start-column="67" selection-end-line="16" selection-end-column="67" />
+        <state relative-caret-position="61">
+          <caret line="32" column="69" selection-start-line="32" selection-start-column="69" selection-end-line="32" selection-end-column="69" />
         </state>
       </provider>
     </entry>

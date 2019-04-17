@@ -83,7 +83,7 @@ module.exports = function(app, swig, gestorBD) {
         }
     });
     app.get("/usuario/lista", function(req, res) {
-        gestorBD.obtenerUsuarios({"type": "Normal"}, function(listaUsuarios) {
+        gestorBD.obtenerUsuarios({"type": "Normal"}, function(usuarios) {
             var infoNav = {"email" : req.session.usuario, "tipo": "Admin","usuarios": usuarios};
             var respuesta = swig.renderFile('views/listarUsuarios.html', infoNav);
             res.send(respuesta);

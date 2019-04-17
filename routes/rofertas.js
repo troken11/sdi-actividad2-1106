@@ -20,6 +20,43 @@ module.exports = function(app,swig,gestorBD) {
         });
 
     });
+    app.get("/oferta/tienda", function(req, res) {
+        var criterio = {"autor": {$ne: req.session.usuario}};
+        if (req.query.busqueda != null) {
+            criterio = {"nombre": {$regex: ".*" + req.query.busqueda + ".*"}, "autor": {$ne: req.session.usuario}};
+        }
+        var pg = parseInt(req.query.pg);    // Es String !!!
+        if ( req.query.pg == null){ // Puede no venir el param
+            pg = 1;
+        }
+        gestorBD.obtenerUsuarios({"email": req.session.usuario}, function(usuarios) {
+            gestorBD.obtenerOfertasPg(criterio, pg , function(ofertas, total ) {
+                if (ofertas == null) {
+                    res.send("Error al listar ");
+                } else {
+                    var ultimaPg = total/4;
+                    if (total % 4 > 0 ){ // Sobran decimales
+                        ultimaPg = ultimaPg+1;
+                    }
+                    var paginas = [];   // paginas mostrar
+                    for(var i = pg-2 ; i <= pg+2 ; i++){
+                        if ( i > 0 && i <= ultimaPg){
+                            paginas.push(i);
+                        }
+                    }
+                    var respuesta = swig.renderFile('views/btienda.html', {
+                        ofertas : ofertas,
+                        paginas : paginas,
+                        actual : pg,
+                        email : req.session.usuario,
+                        tipo : "Normal",
+                        dinero : usuarios[0].money
+                        });
+                    res.send(respuesta);
+                }
+            });
+        });
+    });
     app.post("/oferta", function(req, res) {
         if(req.body.titulo.length > 0 & req.body.detalles.length > 0 & req.body.precio > 0){
             var oferta = {
@@ -27,7 +64,8 @@ module.exports = function(app,swig,gestorBD) {
                 titulo : req.body.titulo,
                 detalles : req.body.detalles,
                 precio : req.body.precio,
-                fecha : new Date()
+                fecha : new Date(),
+                vendido : false
             }
             gestorBD.insertarOferta(oferta, function(id) {
                 if(id==null){

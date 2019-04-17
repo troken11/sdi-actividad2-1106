@@ -4,30 +4,39 @@
 <div class="container">
   <h2>Ofertas</h2>
   <h3>Mis ofertas</h3>
-  <form action='@{/user/list}' method="POST">
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-        <tr>
-          <th>Email</th>
-          <th>Nombre</th>
-          <th>Apellidos</th>
-          <th class="col-md-1"></th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for oferta in ofertas %}
-        <tr>
-          <td>{{ oferta.titulo }}</td>
-          <td>{{ oferta.detalles }}</td>
-          <td>{{ oferta.precio }}</td>
-          <td><input type="checkbox" value="{{ loop.key }}" id="{{ loop.key }}"/></td>
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-      <button type="submit" value="delete" class="btn btn-primary" id="delete">Eliminar seleccionados</button>
-    </div>
-  </form>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Titulo</th>
+        <th>Detalles</th>
+        <th>Precio</th>
+        <th>Estado</th>
+        <th class="col-md-1"></th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for oferta in ofertas %}
+      <tr>
+        <td>{{ oferta.titulo }}</td>
+        <td>{{ oferta.detalles }}</td>
+        <td>{{ oferta.precio }}</td>
+        <td>
+          {% if vendido %}
+          <span>Vendido</span>
+          {% else %}
+          <span>A la venta</span>
+          {% endif %}
+        </td>
+        <td>
+          <form action="your_url" method="post">
+            <button type="submit" name="your_name" value="your_value" class="btn-link">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}
