@@ -23,7 +23,8 @@ module.exports = function(app,swig,gestorBD) {
     app.get("/oferta/tienda", function(req, res) {
         var criterio = {"autor": {$ne: req.session.usuario}};
         if (req.query.busqueda != null) {
-            criterio = {"nombre": {$regex: ".*" + req.query.busqueda + ".*"}, "autor": {$ne: req.session.usuario}};
+            criterio = {"titulo": new RegExp("^" + ".*"+req.query.busqueda.toLowerCase()+".*", "i")
+                        , "autor": {$ne: req.session.usuario}};
         }
         var pg = parseInt(req.query.pg);    // Es String !!!
         if ( req.query.pg == null){ // Puede no venir el param
@@ -44,7 +45,7 @@ module.exports = function(app,swig,gestorBD) {
                             paginas.push(i);
                         }
                     }
-                    var respuesta = swig.renderFile('views/btienda.html', {
+                    var respuesta = swig.renderFile('views/bofertatienda.html', {
                         ofertas : ofertas,
                         paginas : paginas,
                         actual : pg,
@@ -56,6 +57,28 @@ module.exports = function(app,swig,gestorBD) {
                 }
             });
         });
+    });
+    app.post("/oferta/comprar", function(req, res) {
+        if(req.body.id.length > 0 & req.body.detalles.length > 0 & req.body.precio > 0){
+            var oferta = {
+                autor: req.session.usuario,
+                titulo : req.body.titulo,
+                detalles : req.body.detalles,
+                precio : req.body.precio,
+                fecha : new Date(),
+                vendido : false
+            }
+            gestorBD.insertarOferta(oferta, function(id) {
+                if(id==null){
+                    res.redirect("/oferta/agregar?mensaje=No se ha podido añadir la oferta");
+                }else{
+                    res.redirect("/");      //  oferta/lista
+                }
+            });
+        }
+        else{
+            res.redirect("/oferta/agregar?mensaje=Existen campos vacios");
+        }
     });
     app.post("/oferta", function(req, res) {
         if(req.body.titulo.length > 0 & req.body.detalles.length > 0 & req.body.precio > 0){
