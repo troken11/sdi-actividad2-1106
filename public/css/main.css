@@ -7,3 +7,10 @@
 .glyphicon{
     margin-right: 5px;
 }
+
+.showPrice{
+    border-style: none;
+    width: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

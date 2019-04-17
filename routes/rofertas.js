@@ -59,44 +59,76 @@ module.exports = function(app,swig,gestorBD) {
         });
     });
     app.post("/oferta/comprar", function(req, res) {
-        if(req.body.id.length > 0 & req.body.detalles.length > 0 & req.body.precio > 0){
-            var oferta = {
-                autor: req.session.usuario,
-                titulo : req.body.titulo,
-                detalles : req.body.detalles,
-                precio : req.body.precio,
-                fecha : new Date(),
-                vendido : false
-            }
-            gestorBD.insertarOferta(oferta, function(id) {
-                if(id==null){
-                    res.redirect("/oferta/agregar?mensaje=No se ha podido añadir la oferta");
-                }else{
-                    res.redirect("/");      //  oferta/lista
+        if(req.body.id.length > 0 && req.session.usuario){
+            gestorBD.obtenerUsuarios({"email": req.session.usuario}, function(usuarios) {
+                if(usuarios == null){
+                    res.redirect("/");
+                }
+                else{
+                    var ofId = gestorBD.mongo.ObjectID(req.body.id);
+                    var usuario = usuarios[0];
+                    gestorBD.obtenerOfertas({"_id": ofId, "comprador": null}, function(ofertas) {
+                        if(ofertas == null){
+                            res.redirect("/oferta/tienda?mensaje=Esta oferta ya no está en venta");
+                        }
+                        else{
+                            var oferta = ofertas[0];
+                            var dineroRestante = usuario.money - oferta.precio;
+                            if(dineroRestante >= 0){
+                                gestorBD.marcarVendidaOferta(ofId, usuario, function(id) {
+                                    if(id==null){
+                                        res.redirect("/oferta/tienda?mensaje=No dispones de dinero suficiente");
+                                    }else{
+                                        var compra = {
+                                            usuario : req.session.usuario,
+                                            ofertaId : ofId
+                                        };
+                                        gestorBD.modificarDinero(usuario, dineroRestante, function(id) {
+                                            if(id==null){
+                                                res.redirect("/oferta/tienda?mensaje=No se ha podido comprar");
+                                            }else{
+                                                res.redirect("/home");
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                            else{
+                                res.redirect("/oferta/tienda?mensaje=No dispones de dinero suficiente");
+                            }
+                        }
+                    });
                 }
             });
         }
         else{
-            res.redirect("/oferta/agregar?mensaje=Existen campos vacios");
+            res.redirect("/oferta/tienda?mensaje=Existen campos vacios");
         }
     });
     app.post("/oferta", function(req, res) {
-        if(req.body.titulo.length > 0 & req.body.detalles.length > 0 & req.body.precio > 0){
-            var oferta = {
-                autor: req.session.usuario,
-                titulo : req.body.titulo,
-                detalles : req.body.detalles,
-                precio : req.body.precio,
-                fecha : new Date(),
-                vendido : false
-            }
-            gestorBD.insertarOferta(oferta, function(id) {
-                if(id==null){
-                    res.redirect("/oferta/agregar?mensaje=No se ha podido añadir la oferta");
-                }else{
-                    res.redirect("/");      //  oferta/lista
+        if(req.body.titulo.length > 0 && req.body.detalles.length > 0 && req.body.precio > 0){
+            if(req.body.precio.split(".")[1] == null || req.body.precio.split(".")[1].length <= 2){
+                var precio = parseFloat(req.body.precio);
+                var oferta = {
+                    autor: req.session.usuario,
+                    titulo : req.body.titulo,
+                    detalles : req.body.detalles,
+                    precio : precio,
+                    fecha : new Date(),
+                    comprador : null
                 }
-            });
+                gestorBD.insertarOferta(oferta, function(id) {
+                    if(id==null){
+                        res.redirect("/oferta/agregar?mensaje=No se ha podido añadir la oferta");
+                    }else{
+                        res.redirect("/oferta/lista");
+                    }
+                });
+            }
+            else{
+                res.redirect("/oferta/agregar?mensaje=Precio con formato incorrecto");
+            }
+
         }
         else{
             res.redirect("/oferta/agregar?mensaje=Existen campos vacios");

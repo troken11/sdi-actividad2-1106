@@ -20,9 +20,9 @@
       <tr>
         <td>{{ oferta.titulo }}</td>
         <td>{{ oferta.detalles }}</td>
-        <td>{{ oferta.precio }}</td>
+        <td>{{ oferta.precio.toString() }}</td>
         <td>
-          {% if vendido %}
+          {% if oferta.comprador != null %}
           <span>Vendido</span>
           {% else %}
           <span>A la venta</span>

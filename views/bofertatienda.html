@@ -35,20 +35,20 @@
         <tr>
             <td>{{ oferta.titulo }}</td>
             <td>{{ oferta.detalles }}</td>
-            <td>{{ oferta.precio }}</td>
+            <td>{{ oferta.precio.toString()}} €</td>
             <td>
-                {% if vendido %}
+                {% if oferta.comprador != null %}
                 <span>Vendido</span>
                 {% else %}
                 <span>A la venta</span>
                 {% endif %}
             </td>
             <td>
-                {% if vendido %}
+                {% if oferta.comprador != null %}
                 <span>Vendido</span>
                 {% else %}
-                <form action="/oferta/compra" method="post">
-                    <button type="submit" name="your_name" value="your_value" class="btn btn-primary">Eliminar</button>
+                <form action="/oferta/comprar" method="post">
+                    <button type="submit" name="id" value={{oferta._id.toString()}} class="btn btn-primary">Comprar</button>
                 </form>
                 {% endif %}
             </td>

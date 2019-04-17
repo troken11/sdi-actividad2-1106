@@ -55,17 +55,18 @@ module.exports = {
             }
         });
     },
-    comprarOferta: function(oferta, funcionCallback) {
+    marcarVendidaOferta: function(idOferta, comprador, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 var collection = db.collection('ofertas');
-                collection.update({vendido: "true"}, function(err, result) {
+                var email = comprador.email;
+                collection.update({_id: idOferta},{$set: {"comprador": email}}, function(err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
-                        funcionCallback(result.ops[0]._id);
+                        funcionCallback(result);
                     } db.close();
                 });
             }
@@ -103,6 +104,23 @@ module.exports = {
                         }
                         db.close();
                     });
+                });
+            }
+        });
+    },
+    modificarDinero: function(usuario, dineroRestante, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('usuarios');
+                var uid = usuario._id;
+                collection.update({_id: uid},{$set: {"money": dineroRestante}},function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    } db.close();
                 });
             }
         });
