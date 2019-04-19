@@ -100,6 +100,42 @@ routerUsuarioSession.use(function(req, res, next) {
     }
 });
 
+var routerAdminSession = express.Router();
+routerAdminSession.use(function(req, res, next) {
+    console.log("routerAdminSession");
+    if ( req.session.usuario ) {
+        if(req.session.usuario == "admin@email.com"){
+            // dejamos correr la petición
+            next();
+        }
+        else{
+            console.log("va a : "+req.session.destino)
+            res.redirect("/home");
+        }
+    } else {
+        console.log("va a : "+req.session.destino)
+        res.redirect("/identificarse");
+    }
+});
+
+var routerNormalSession = express.Router();
+routerNormalSession.use(function(req, res, next) {
+    console.log("routerNormalSession");
+    if ( req.session.usuario ) {
+        if(req.session.usuario != "admin@email.com"){
+            // dejamos correr la petición
+            next();
+        }
+        else{
+            console.log("va a : "+req.session.destino)
+            res.redirect("/home");
+        }
+    } else {
+        console.log("va a : "+req.session.destino)
+        res.redirect("/identificarse");
+    }
+});
+
 //Aplicar routerUsuarioSession
 app.use("/canciones/agregar",routerUsuarioSession);
 app.use("/publicaciones",routerUsuarioSession);
@@ -109,8 +145,8 @@ app.use("/compras",routerUsuarioSession);
 
 //Aplicar routerUsuarioSession
 app.use("/home",routerUsuarioSession);
-app.use("/usuario/lista",routerUsuarioSession);
-app.use("/oferta/*",routerUsuarioSession);
+app.use("/usuario/lista",routerAdminSession);
+app.use("/oferta/*",routerNormalSession);
 
 
 //routerUsuarioAutor

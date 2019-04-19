@@ -11,6 +11,7 @@
         <th>Titulo</th>
         <th>Detalles</th>
         <th>Precio</th>
+        <th>Tipo</th>
         <th>Estado</th>
         <th class="col-md-1"></th>
       </tr>
@@ -20,17 +21,28 @@
       <tr>
         <td>{{ oferta.titulo }}</td>
         <td>{{ oferta.detalles }}</td>
-        <td>{{ oferta.precio.toString() }}</td>
+        <td>{{ oferta.precio.toString() }} €</td>
         <td>
-          {% if oferta.comprador != null %}
-          <span>Vendido</span>
+          {% if oferta.destacada %}
+            <span>Destacada</span>
+          {% elseif oferta.comprador == null%}
+            <form action="/oferta/destacar" method="post">
+              <button type="submit" name="destacada" value={{oferta._id.toString()}} class="btn-link">Normal</button>
+            </form>
           {% else %}
-          <span>A la venta</span>
+            <span>Normal</span>
           {% endif %}
         </td>
         <td>
-          <form action="your_url" method="post">
-            <button type="submit" name="your_name" value="your_value" class="btn-link">Eliminar</button>
+          {% if oferta.comprador != null %}
+            <span>Vendido</span>
+          {% else %}
+            <span>A la venta</span>
+          {% endif %}
+        </td>
+        <td>
+          <form action="/oferta/eliminar" method="post">
+            <button type="submit" name="eliminar" value={{oferta._id.toString()}} class="btn-link">Eliminar</button>
           </form>
         </td>
       </tr>

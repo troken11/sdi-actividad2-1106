@@ -1,0 +1,30 @@
+{% extends "home.html" %}
+
+{% block contenido_principal %}
+<div class="container">
+  <h2>Ofertas</h2>
+  <h3>Ofertas compradas por mí</h3>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Titulo</th>
+        <th>Detalles</th>
+        <th>Precio</th>
+        <th>Vendedor</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for oferta in ofertas %}
+      <tr>
+        <td>{{ oferta.titulo }}</td>
+        <td>{{ oferta.detalles }}</td>
+        <td>{{ oferta.precio.toString() }}</td>
+        <td> {{ oferta.autor }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

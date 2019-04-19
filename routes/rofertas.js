@@ -105,25 +105,94 @@ module.exports = function(app,swig,gestorBD) {
             res.redirect("/oferta/tienda?mensaje=Existen campos vacios");
         }
     });
+    app.get("/oferta/compradas", function(req, res) {
+        if(req.session.usuario){
+            gestorBD.obtenerUsuarios({"email": req.session.usuario}, function(usuarios) {
+                gestorBD.obtenerOfertas({"comprador": req.session.usuario}, function(ofertas) {
+                    var infoNav = {"email" : req.session.usuario, "tipo": "Normal", "dinero": usuarios[0].money,
+                        "ofertas": ofertas};
+                    var respuesta = swig.renderFile('views/bofertacompradas.html', infoNav);
+                    res.send(respuesta);
+                });
+            });
+        } else {
+            //NO PERMITIR
+        }
+
+    });
+    app.post("/oferta/destacar", function(req, res) {
+        if(req.session.usuario && req.body.destacada && req.body.destacada.length > 0){
+            gestorBD.obtenerUsuarios({"email": req.session.usuario}, function(usuarios) {
+                if(usuarios[0].money >= 20){
+                    var ofId = gestorBD.mongo.ObjectID(req.body.destacada);
+                    gestorBD.destacarOferta(ofId, function(id) {
+                        if(id==null){
+                            res.redirect("/oferta/lista?mensaje=La oferta estaba destacada");
+                        }else{
+                            gestorBD.modificarDinero(usuarios[0], usuarios[0].money - 20, function(id) {
+                                if(id==null){
+                                    res.redirect("/oferta/lista?mensaje=Existen problemas al destacar la oferta");
+                                }else{
+                                    res.redirect("/oferta/lista");
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    res.redirect("/oferta/lista?mensaje=No tienes suficiente dinero para destacar la oferta");
+                }
+            });
+        }
+        else{
+            res.redirect("/oferta/lista?mensaje=No se obtuvieron los datos necesarios");
+        }
+    });
     app.post("/oferta", function(req, res) {
         if(req.body.titulo.length > 0 && req.body.detalles.length > 0 && req.body.precio > 0){
             if(req.body.precio.split(".")[1] == null || req.body.precio.split(".")[1].length <= 2){
                 var precio = parseFloat(req.body.precio);
+                var destacada = false;
+                if(req.body.destacada != null){
+                    destacada = true;
+                }
                 var oferta = {
                     autor: req.session.usuario,
                     titulo : req.body.titulo,
                     detalles : req.body.detalles,
                     precio : precio,
+                    destacada : destacada,
                     fecha : new Date(),
                     comprador : null
                 }
-                gestorBD.insertarOferta(oferta, function(id) {
-                    if(id==null){
-                        res.redirect("/oferta/agregar?mensaje=No se ha podido añadir la oferta");
-                    }else{
-                        res.redirect("/oferta/lista");
-                    }
-                });
+                if(destacada){
+                    gestorBD.obtenerUsuarios({"email": req.session.usuario}, function(usuarios) {
+                        if(usuarios[0].money >= 20) {
+                            gestorBD.insertarOferta(oferta, function(id) {
+                                if(id==null){
+                                    res.redirect("/oferta/agregar?mensaje=No se ha podido añadir la oferta");
+                                }else{
+                                    gestorBD.modificarDinero(usuarios[0], usuarios[0].money - 20, function(id) {
+                                        if(id==null){
+                                            res.redirect("/oferta/tienda?mensaje=Existen problemas al destacar la oferta");
+                                        }else{
+                                            res.redirect("/oferta/lista");
+                                        }
+                                    });
+                                }
+                            });
+                        }else{
+                            res.redirect("/oferta/tienda?mensaje=No tienes suficiente dinero para destacar la oferta");
+                        }
+                    });
+                } else{
+                    gestorBD.insertarOferta(oferta, function(id) {
+                        if(id==null){
+                            res.redirect("/oferta/agregar?mensaje=No se ha podido añadir la oferta");
+                        }else{
+                            res.redirect("/oferta/lista");
+                        }
+                    });
+                }
             }
             else{
                 res.redirect("/oferta/agregar?mensaje=Precio con formato incorrecto");
