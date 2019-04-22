@@ -55,13 +55,12 @@ module.exports = {
             }
         });
     },
-    marcarVendidaOferta: function(idOferta, comprador, funcionCallback) {
+    marcarVendidaOferta: function(idOferta, email, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 var collection = db.collection('ofertas');
-                var email = comprador.email;
                 collection.update({_id: idOferta},{$set: {"comprador": email}}, function(err, result) {
                     if (err) {
                         funcionCallback(null);
@@ -124,14 +123,13 @@ module.exports = {
             }
         });
     },
-    modificarDinero: function(usuario, dineroRestante, funcionCallback) {
+    modificarDinero: function(correo, dineroRestante, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 var collection = db.collection('usuarios');
-                var uid = usuario._id;
-                collection.update({_id: uid},{$set: {"money": dineroRestante}},function(err, result) {
+                collection.update({email: correo},{$set: {"money": dineroRestante}},function(err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
