@@ -60,7 +60,7 @@ module.exports = function(app,swig,gestorBD) {
                 }
                 else{
                     var oferta = ofertas[0];
-                    var dineroRestante = req.session.dinero - oferta.precio;
+                    var dineroRestante = (req.session.dinero * 100) - (oferta.precio * 100) / 100;
                     if(dineroRestante >= 0){
                         gestorBD.marcarVendidaOferta(ofId, req.session.usuario, function(id) {
                             if(id==null){
@@ -89,41 +89,39 @@ module.exports = function(app,swig,gestorBD) {
     });
     app.get("/oferta/compradas", function(req, res) {
         if(req.session.usuario){
-            gestorBD.obtenerUsuarios({"email": req.session.usuario}, function(usuarios) {
-                gestorBD.obtenerOfertas({"comprador": req.session.usuario}, function(ofertas) {
-                    var infoNav = {"email" : req.session.usuario, "tipo": "Normal", "dinero": usuarios[0].money,
-                        "ofertas": ofertas};
-                    var respuesta = swig.renderFile('views/bofertacompradas.html', infoNav);
-                    res.send(respuesta);
-                });
+            gestorBD.obtenerOfertas({"comprador": req.session.usuario}, function(ofertas) {
+                var infoNav = {"email" : req.session.usuario, "tipo": req.session.rol, "dinero": req.session.dinero,
+                    "ofertas": ofertas};
+                var respuesta = swig.renderFile('views/bofertacompradas.html', infoNav);
+                res.send(respuesta);
             });
         } else {
-            //NO PERMITIR
+            res.redirect("/identificarse");
         }
 
     });
     app.post("/oferta/destacar", function(req, res) {
         if(req.session.usuario && req.body.destacada && req.body.destacada.length > 0){
-            gestorBD.obtenerUsuarios({"email": req.session.usuario}, function(usuarios) {
-                if(usuarios[0].money >= 20){
-                    var ofId = gestorBD.mongo.ObjectID(req.body.destacada);
-                    gestorBD.destacarOferta(ofId, function(id) {
-                        if(id==null){
-                            res.redirect("/oferta/lista?mensaje=La oferta estaba destacada");
-                        }else{
-                            gestorBD.modificarDinero(usuarios[0], usuarios[0].money - 20, function(id) {
-                                if(id==null){
-                                    res.redirect("/oferta/lista?mensaje=Existen problemas al destacar la oferta");
-                                }else{
-                                    res.redirect("/oferta/lista");
-                                }
-                            });
-                        }
-                    });
-                } else {
-                    res.redirect("/oferta/lista?mensaje=No tienes suficiente dinero para destacar la oferta");
-                }
-            });
+            if(req.session.dinero >= 20){
+                var ofId = gestorBD.mongo.ObjectID(req.body.destacada);
+                gestorBD.destacarOferta(ofId, function(id) {
+                    if(id==null){
+                        res.redirect("/oferta/lista?mensaje=La oferta estaba destacada");
+                    }else{
+                        var nuevoDinero = (req.session.dinero * 100) - (20 * 100) / 100;
+                        gestorBD.modificarDinero(req.session.usuario, nuevoDinero, function(id) {
+                            if(id==null){
+                                res.redirect("/oferta/lista?mensaje=Existen problemas al destacar la oferta");
+                            }else{
+                                req.session.dinero = nuevoDinero;
+                                res.redirect("/oferta/lista");
+                            }
+                        });
+                    }
+                });
+            } else {
+                res.redirect("/oferta/lista?mensaje=No tienes suficiente dinero para destacar la oferta");
+            }
         }
         else{
             res.redirect("/oferta/lista?mensaje=No se obtuvieron los datos necesarios");
