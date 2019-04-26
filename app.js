@@ -70,6 +70,8 @@ routerUsuarioToken.use(function(req, res, next) {
 
 // Aplicar routerUsuarioToken
 app.use('/api/tienda', routerUsuarioToken);
+app.use('/mensaje/enviar', routerUsuarioToken);
+app.use('/mensaje/mostrar', routerUsuarioToken);
 
 var gestorBD = require("./modules/gestorBD.js");
 gestorBD.init(app,mongo);// routerUsuarioSession

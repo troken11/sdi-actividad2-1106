@@ -34,6 +34,36 @@ module.exports = function(app, gestorBD) {
             }
         });
     });
+    app.post("/api/mensaje/enviar", function(req, res) {
+        var criterio = {
+            idOferta: req.body.idOferta,
+            $or: [{autor: res.usuario}, {interesado: res.usuario}]
+        };
+        gestorBD.obtenerConversaciones( criterio , function(conv) {
+            if (conv == null) {
+
+                res.status(500);
+                res.json({ error : "se ha producido un error" })
+            } else {
+
+                res.status(200);
+                res.send( JSON.stringify(conv) );
+            }
+        });
+
+
+        /*
+        gestorBD.obtenerOfertas( {autor: {$ne: res.usuario}, eliminada: false} , function(ofertas) {
+            if (ofertas == null) {
+                res.status(500);
+                res.json({ error : "se ha producido un error" })
+            } else {
+                res.status(200);
+                res.send( JSON.stringify(ofertas) );
+            }
+        });
+        */
+    });
 }
 
 
