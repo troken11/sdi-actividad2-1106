@@ -3,7 +3,8 @@ module.exports = function(app, gestorBD) {
         var seguro =app.get("crypto").createHmac('sha256',app.get('clave')).update(req.body.password).digest('hex');
         var criterio ={
             email: req.body.email,
-            password: seguro
+            password: seguro,
+            eliminado: false
         }
         gestorBD.obtenerUsuarios(criterio,function(usuarios){
             if(usuarios ==null||usuarios.length ==0){
@@ -19,6 +20,17 @@ module.exports = function(app, gestorBD) {
                     autenticado: true,
                     token: token
                 });
+            }
+        });
+    });
+    app.get("/api/tienda", function(req, res) {
+        gestorBD.obtenerOfertas( {autor: {$ne: res.usuario}, eliminada: false} , function(ofertas) {
+            if (ofertas == null) {
+                res.status(500);
+                res.json({ error : "se ha producido un error" })
+            } else {
+                res.status(200);
+                res.send( JSON.stringify(ofertas) );
             }
         });
     });

@@ -68,6 +68,9 @@ routerUsuarioToken.use(function(req, res, next) {
     }
 });
 
+// Aplicar routerUsuarioToken
+app.use('/api/tienda', routerUsuarioToken);
+
 var gestorBD = require("./modules/gestorBD.js");
 gestorBD.init(app,mongo);// routerUsuarioSession
 
