@@ -77,7 +77,23 @@ module.exports = {
                 funcionCallback(null);
             } else {
                 var collection = db.collection('ofertas');
-                collection.update({_id: idOferta, destacada: false},{$set: {"destacada": true}}, function(err, result) {
+                collection.update({_id: idOferta, destacada: false},{$set: {destacada: true}}, function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    } db.close();
+                });
+            }
+        });
+    },
+    eliminarOferta: function(idOferta, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('ofertas');
+                collection.update({_id: idOferta, eliminada: false},{$set: {eliminada: true}}, function(err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
@@ -129,7 +145,39 @@ module.exports = {
                 funcionCallback(null);
             } else {
                 var collection = db.collection('usuarios');
-                collection.update({email: correo},{$set: {"money": dineroRestante}},function(err, result) {
+                collection.update({email: correo},{$set: {money: dineroRestante}},function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    } db.close();
+                });
+            }
+        });
+    },
+    eliminarUsuario: function(correo, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('usuarios');
+                collection.update({email: correo},{$set: {eliminado: true}},function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    } db.close();
+                });
+            }
+        });
+    },
+    eliminarOfertasDeUsuario: function(correo, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('ofertas');
+                collection.update({autor: correo},{$set: {eliminada: true}},function(err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {

@@ -24,7 +24,8 @@ module.exports = function(app, swig, gestorBD) {
                         name : req.body.name,
                         lastname : req.body.lastname,
                         type : "Normal",
-                        money : 100.0
+                        money : 100.0,
+                        eliminado: false
                     }
                     var criterio = {email : req.body.email};
                     gestorBD.obtenerUsuarios(criterio, function(usuarios) {
@@ -33,7 +34,10 @@ module.exports = function(app, swig, gestorBD) {
                                 if(id==null){
                                     res.redirect("/registrarse?mensaje=Error al registrar usuario");
                                 }else{
-                                    res.redirect("/identificarse?mensaje=Nuevo usuario registrado");
+                                    req.session.usuario = req.body.email;
+                                    req.session.rol = "Normal";
+                                    req.session.dinero = 100.0;
+                                    res.redirect("/home?mensaje=Nuevo usuario registrado");
                                 }
                             });
                         }
@@ -48,6 +52,30 @@ module.exports = function(app, swig, gestorBD) {
             else{
                 res.redirect("/registrarse?mensaje=Existen campos vacios");
             }
+        }
+
+    });
+    app.post('/usuario/eliminar', function(req, res) {
+        if(req.session.usuario != null){
+            var emails = Object.keys(req.body);
+            if(emails.length == 0){
+                res.redirect("/usuario/lista?mensaje=No hay ningun usuario seleccionado");
+            }
+            else{
+                for(var i=0; i<emails.length; i++){
+                    gestorBD.eliminarUsuario(emails[i], function() {
+                        console.log("Usuario eliminado");
+                    });
+                    gestorBD.eliminarOfertasDeUsuario(emails[i], function() {
+                        if(i==emails.length){
+                            res.redirect("/usuario/lista");
+                        }
+                    });
+                }
+            }
+        }
+        else{
+            res.redirect("/home");
         }
 
     });
@@ -69,7 +97,7 @@ module.exports = function(app, swig, gestorBD) {
                 .update(req.body.password).digest('hex');
             var criterio = {
                 email : req.body.email,
-                password : seguro
+                password : seguro,
             }
             gestorBD.obtenerUsuarios(criterio, function(usuarios) {
                 if (usuarios == null || usuarios.length == 0) {
@@ -77,11 +105,16 @@ module.exports = function(app, swig, gestorBD) {
                     req.session.rol=null;
                     req.session.dinero=null;
                     res.redirect("/identificarse" + "?mensaje=Email o password incorrecto"+ "&tipoMensaje=alert-danger ");
-                } else {
-                    req.session.usuario=usuarios[0].email;
-                    req.session.rol=usuarios[0].type;
-                    req.session.dinero=usuarios[0].money;
-                    res.redirect("/home");
+                }
+                else {
+                    if (usuarios[0].eliminado) {
+                        res.redirect("/identificarse" + "?mensaje=Tu usuario ha sido eliminado" + "&tipoMensaje=alert-danger ");
+                    } else {
+                        req.session.usuario = usuarios[0].email;
+                        req.session.rol = usuarios[0].type;
+                        req.session.dinero = usuarios[0].money;
+                        res.redirect("/home");
+                    }
                 }
             });
         }
@@ -105,9 +138,9 @@ module.exports = function(app, swig, gestorBD) {
         }
     });
     app.get("/usuario/lista", function(req, res) {
-        gestorBD.obtenerUsuarios({"type": "Normal"}, function(usuarios) {
-            var infoNav = {"email" : req.session.usuario, "tipo": "Admin","usuarios": usuarios};
-            var respuesta = swig.renderFile('views/listarUsuarios.html', infoNav);
+        gestorBD.obtenerUsuarios({type: "Normal", eliminado: false}, function(usuarios) {
+            var infoNav = {"email" : req.session.usuario, "tipo": req.session.rol,"usuarios": usuarios};
+            var respuesta = swig.renderFile('views/busuariolista.html', infoNav);
             res.send(respuesta);
         });
     });

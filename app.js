@@ -1,22 +1,3 @@
-/*
-// Módulos
-var express = require('express');
-var app = express();
-
-var swig = require('swig');
-
-// Variables
-app.set('port', 8081);
-
-//Rutas/controladores por lógica
-require("./routes/rusuarios.js")(app,swig); // (app, param1, param2, etc.)
-require("./routes/rofertas.js")(app); // (app, param1, param2, etc.)
-
-// lanzar el servidor
-app.listen(app.get('port'), function() {
-    console.log("Servidor activo");
-});
-*/
 // Módulos
 var express = require('express');
 var app = express();
@@ -33,10 +14,10 @@ app.use(function(req, res, next) {
     next();
 });
 
-/*
+
 var jwt = require('jsonwebtoken');
 app.set('jwt',jwt);
-*/
+
 var fs = require('fs');
 var https = require('https');
 
@@ -50,9 +31,11 @@ app.use(expressSession({
 var crypto = require('crypto');
 var fileUpload=require('express-fileupload');
 app.use(fileUpload());
+
 var mongo = require('mongodb');
 var swig = require('swig');
 var bodyParser = require('body-parser');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -211,6 +194,7 @@ app.set('crypto',crypto);
 //Rutas/controladores por lógica
 require("./routes/rusuarios.js")(app,swig,gestorBD); // (app, param1, param2, etc.)
 require("./routes/rofertas.js")(app,swig,gestorBD); // (app, param1, param2, etc.)
+require("./routes/rapirest.js")(app,gestorBD); // (app, param1, param2, etc.)
 
 app.get('/', function (req, res) {
     res.redirect('/registrarse');
