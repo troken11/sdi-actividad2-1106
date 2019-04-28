@@ -1,5 +1,3 @@
-import each from 'async/each';
-
 module.exports = function(app, gestorBD) {
     app.post("/api/autenticar",function(req,res){
         var seguro =app.get("crypto").createHmac('sha256',app.get('clave')).update(req.body.password).digest('hex');
@@ -143,61 +141,46 @@ module.exports = function(app, gestorBD) {
                 idOferta: gestorBD.mongo.ObjectID(req.params.id),
                 $or: [{autor: res.usuario}, {interesado: res.usuario}]
             };
-            gestorBD.obtenerConversaciones(posibleConv, function (conv) {
+            gestorBD.obtenerMensajesDeOferta(posibleConv, function (conv) {
                 if (conv == null || conv.length == 0) {
                     // NO existen. ERROR
                     res.status(500);
                     res.json({error: "se ha producido un error"});
                 } else {
-                    // SI.
-                    // Creo un mensaje para esa conversacion
-                    var todasConv = new Array();
-                    async.each(conv, function(todasConv, callback) {
-                        var criterioM = {
-                            idConversacion: con._id
-                        };
-                        gestorBD.obtenerMensajes(criterioM, function (mensajes) {
-                            if (mensajes == null || mensajes.length == 0) {
-                                // NO existen. ERROR?
-                                callback("Conversacion sin mensajes");
-                            } else {
-                                todasConv.push({mensajes: mensajes});
-                                callback();
-                            }
-                        });
-                    }, function(err) {
-                        if( err ) {
-                            //ERROR
-                        } else {
-                            //VA BIEN
-                            res.status(200);
-                            res.send(JSON.stringify(todasConv));
-                        }
-                    });
-
-
-
-
-
-
-                    for(var con of conv){
-                        var criterioM = {
-                            idConversacion: con._id
-                        };
-                        gestorBD.obtenerMensajes(criterioM, function (mensajes) {
-                            if (mensajes == null || mensajes.length == 0) {
-                                // NO existen. ERROR?
-                            } else {
-                                todasConv.push({mensajes: mensajes});
-                                if(con == conv[conv.length-1]){
-                                    //res.status(200);
-                                    //res.send(JSON.stringify(todasConv));
-                                }
-                            }
-                        });
-                    }
+                    res.status(200);
+                    res.send(JSON.stringify(conv));
                 }
             });
+        }
+    });
+
+    app.post("/api/mensaje/leido", function(req, res) {
+        if(req.body.id != null && req.body.id.length > 0){
+            var mensajeAct = {
+                _id: gestorBD.mongo.ObjectID(req.body.id),
+                receptor: res.usuario
+            };
+            gestorBD.leerMensaje(mensajeAct, function (id) {
+                if (id == null || id.result.n == 0) {
+                    // NO existen. ERROR
+                    res.status(500);
+                    res.json({error: "se ha producido un error"});
+                } else {
+                    res.status(200);
+                    res.json({mensaje: "mensaje leido correctamente"});
+                }
+            });
+        }
+    });
+
+    app.post("/api/conversacion/eliminar", function(req, res) {
+        // Recibe id (de conversacion) y res.usuario
+        // Eliminar conversacion con esa _id y mensajes con esa _id
+        // Poner tambien un condicional para que se pueda transformar en ObjectId
+        // Error producido: Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters
+
+        if(req.body.id != null && req.body.id.length > 0){
+
         }
     });
 

@@ -260,9 +260,54 @@ module.exports = {
         });
     },
 
+    obtenerMensajesDeOferta : function(criterio,funcionCallback){
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('conversaciones');
+                var junta = [
+                    {
+                        $lookup:
+                            {
+                                from: "mensajes",
+                                localField: "_id",
+                                foreignField: "idConversacion",
+                                as: "mensajes"
+                            }
+                    },
+                ];
+                collection.aggregate(junta).toArray(function(err, mensajes) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(mensajes);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
 
 
 
+
+    leerMensaje: function(criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('mensajes');
+                collection.update(criterio,{$set: {leido: true}},function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    } db.close();
+                });
+            }
+        });
+    }
     /*
     obtenerCancionesPg : function(criterio,pg,funcionCallback){
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
