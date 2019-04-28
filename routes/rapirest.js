@@ -1,3 +1,5 @@
+import each from 'async/each';
+
 module.exports = function(app, gestorBD) {
     app.post("/api/autenticar",function(req,res){
         var seguro =app.get("crypto").createHmac('sha256',app.get('clave')).update(req.body.password).digest('hex');
@@ -132,6 +134,70 @@ module.exports = function(app, gestorBD) {
         else{
             res.status(500);
             res.json({error: "se ha producido un error"});
+        }
+    });
+
+    app.get("/api/mensaje/mostrar/:id", function(req, res) {
+        if(req.params.id != null && req.params.id.length > 0){
+            var posibleConv = {
+                idOferta: gestorBD.mongo.ObjectID(req.params.id),
+                $or: [{autor: res.usuario}, {interesado: res.usuario}]
+            };
+            gestorBD.obtenerConversaciones(posibleConv, function (conv) {
+                if (conv == null || conv.length == 0) {
+                    // NO existen. ERROR
+                    res.status(500);
+                    res.json({error: "se ha producido un error"});
+                } else {
+                    // SI.
+                    // Creo un mensaje para esa conversacion
+                    var todasConv = new Array();
+                    async.each(conv, function(todasConv, callback) {
+                        var criterioM = {
+                            idConversacion: con._id
+                        };
+                        gestorBD.obtenerMensajes(criterioM, function (mensajes) {
+                            if (mensajes == null || mensajes.length == 0) {
+                                // NO existen. ERROR?
+                                callback("Conversacion sin mensajes");
+                            } else {
+                                todasConv.push({mensajes: mensajes});
+                                callback();
+                            }
+                        });
+                    }, function(err) {
+                        if( err ) {
+                            //ERROR
+                        } else {
+                            //VA BIEN
+                            res.status(200);
+                            res.send(JSON.stringify(todasConv));
+                        }
+                    });
+
+
+
+
+
+
+                    for(var con of conv){
+                        var criterioM = {
+                            idConversacion: con._id
+                        };
+                        gestorBD.obtenerMensajes(criterioM, function (mensajes) {
+                            if (mensajes == null || mensajes.length == 0) {
+                                // NO existen. ERROR?
+                            } else {
+                                todasConv.push({mensajes: mensajes});
+                                if(con == conv[conv.length-1]){
+                                    //res.status(200);
+                                    //res.send(JSON.stringify(todasConv));
+                                }
+                            }
+                        });
+                    }
+                }
+            });
         }
     });
 
