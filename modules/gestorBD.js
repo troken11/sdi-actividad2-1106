@@ -155,13 +155,13 @@ module.exports = {
             }
         });
     },
-    eliminarUsuario: function(correo, funcionCallback) {
+    eliminarUsuarios: function(correos, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 var collection = db.collection('usuarios');
-                collection.update({email: correo},{$set: {eliminado: true}},function(err, result) {
+                collection.deleteMany({email: {$in: correos}},function(err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
@@ -171,13 +171,13 @@ module.exports = {
             }
         });
     },
-    eliminarOfertasDeUsuario: function(correo, funcionCallback) {
+    eliminarOfertasDeUsuarios: function(correos, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 var collection = db.collection('ofertas');
-                collection.update({autor: correo},{$set: {eliminada: true}},function(err, result) {
+                collection.update({autor: {$in: correos}},{$set: {eliminada: true}},function(err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
@@ -242,25 +242,7 @@ module.exports = {
         });
     },
 
-    obtenerMensajes : function(criterio,funcionCallback){
-        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
-            if (err) {
-                funcionCallback(null);
-            } else {
-                var collection = db.collection('mensajes');
-                collection.find(criterio).toArray(function(err, usuarios) {
-                    if (err) {
-                        funcionCallback(null);
-                    } else {
-                        funcionCallback(usuarios);
-                    }
-                    db.close();
-                });
-            }
-        });
-    },
-
-    obtenerMensajesDeOferta : function(criterio,funcionCallback){
+    obtenerMensajesDeConver : function(criterio,funcionCallback){
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
                 funcionCallback(null);
@@ -291,7 +273,6 @@ module.exports = {
 
 
 
-
     leerMensaje: function(criterio, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
@@ -303,6 +284,40 @@ module.exports = {
                         funcionCallback(null);
                     } else {
                         funcionCallback(result);
+                    } db.close();
+                });
+            }
+        });
+    },
+
+    eliminarConversacion: function(criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('conversaciones');
+                collection.remove(criterio, function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result.result.n);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+    eliminarMensajesDeConversacion: function(criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('mensajes');
+                collection.deleteMany(criterio,function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result.result.n);
                     } db.close();
                 });
             }

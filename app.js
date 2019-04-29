@@ -73,6 +73,7 @@ app.use('/api/tienda', routerUsuarioToken);
 app.use('/api/mensaje/enviar', routerUsuarioToken);
 app.use('/api/mensaje/mostrar', routerUsuarioToken);
 app.use('/api/mensaje/leido', routerUsuarioToken);
+app.use("/api/conversacion/eliminar", routerUsuarioToken);
 
 var gestorBD = require("./modules/gestorBD.js");
 gestorBD.init(app,mongo);// routerUsuarioSession

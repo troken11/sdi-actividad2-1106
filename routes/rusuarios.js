@@ -62,16 +62,20 @@ module.exports = function(app, swig, gestorBD) {
                 res.redirect("/usuario/lista?mensaje=No hay ningun usuario seleccionado");
             }
             else{
-                for(var i=0; i<emails.length; i++){
-                    gestorBD.eliminarUsuario(emails[i], function() {
-                        console.log("Usuario eliminado");
-                    });
-                    gestorBD.eliminarOfertasDeUsuario(emails[i], function() {
-                        if(i==emails.length){
-                            res.redirect("/usuario/lista");
-                        }
-                    });
-                }
+                gestorBD.eliminarUsuarios(emails, function(result) {
+                    if(result == null){
+                        res.redirect("/usuario/lista?mensaje=No se han podido eliminar los usuarios");
+                    } else{
+                        res.redirect("/usuario/lista");
+                    }
+                });
+                gestorBD.eliminarOfertasDeUsuarios(emails, function(result) {
+                    if(result == null){
+                        res.redirect("/usuario/lista?mensaje=No se han podido eliminar las ofertas de usuarios");
+                    } else{
+                        res.redirect("/usuario/lista");
+                    }
+                });
             }
         }
         else{

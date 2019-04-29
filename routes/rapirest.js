@@ -98,6 +98,8 @@ module.exports = function(app, gestorBD) {
                             gestorBD.crearConversacion(nuevaConv, function (id) {
                                 if (id == null) {
                                     // FALLO. Devuelve error
+                                    res.status(500);
+                                    res.json({error: "se ha producido un error"});
                                 } else {
                                     // BIEN.
                                     // Creo un mensaje
@@ -141,7 +143,7 @@ module.exports = function(app, gestorBD) {
                 idOferta: gestorBD.mongo.ObjectID(req.params.id),
                 $or: [{autor: res.usuario}, {interesado: res.usuario}]
             };
-            gestorBD.obtenerMensajesDeOferta(posibleConv, function (conv) {
+            gestorBD.obtenerMensajesDeConver(posibleConv, function (conv) {
                 if (conv == null || conv.length == 0) {
                     // NO existen. ERROR
                     res.status(500);
@@ -178,9 +180,26 @@ module.exports = function(app, gestorBD) {
         // Eliminar conversacion con esa _id y mensajes con esa _id
         // Poner tambien un condicional para que se pueda transformar en ObjectId
         // Error producido: Error: Argument passed in must be a single String of 12 bytes or a string of 24 hex characters
-
-        if(req.body.id != null && req.body.id.length > 0){
-
+        if(req.body.id != null && req.body.id.length > 0 && res.usuario != null){
+            var objId = gestorBD.mongo.ObjectID(req.body.id);
+            var criterioConv = {_id: objId, $or:[{autor: res.usuario}, {interesado: res.usuario}]};
+            gestorBD.eliminarConversacion(criterioConv, function(result) {
+                if(result == null){
+                    res.status(500);
+                    res.json({error: "se ha producido un error borrando la conversacion"});
+                } else{
+                    var criterioMens = {idConversacion: objId, $or:[{autor: res.usuario}, {receptor: res.usuario}]}
+                    gestorBD.eliminarMensajesDeConversacion(criterioMens, function(result) {
+                        if(result == null){
+                            res.status(500);
+                            res.json({error: "se ha producido un error borrando mensajes"});
+                        } else{
+                            res.status(200);
+                            res.json({mensaje: "conversacion eliminada"});
+                        }
+                    });
+                }
+            });
         }
     });
 
