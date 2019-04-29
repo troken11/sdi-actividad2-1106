@@ -130,8 +130,7 @@ module.exports = function(app, swig, gestorBD) {
         res.redirect("/identificarse");
     });
     app.get("/home", function(req, res) {
-        var infoNav = {"email" : req.session.usuario, "tipo":req.session.rol, "dinero": req.session.dinero};
-        var respuesta = swig.renderFile('views/home.html', infoNav);
+        var respuesta =  mostrarVista('views/home.html', {}, req.session);
         res.send(respuesta);
     });
     app.get("/", function(req, res) {
@@ -143,9 +142,28 @@ module.exports = function(app, swig, gestorBD) {
     });
     app.get("/usuario/lista", function(req, res) {
         gestorBD.obtenerUsuarios({type: "Normal", eliminado: false}, function(usuarios) {
-            var infoNav = {"email" : req.session.usuario, "tipo": req.session.rol,"usuarios": usuarios};
-            var respuesta = swig.renderFile('views/busuariolista.html', infoNav);
+            var infoNav = {"usuarios": usuarios};
+            var respuesta = mostrarVista('views/busuariolista.html', infoNav, req.session);
             res.send(respuesta);
         });
     });
+
+    /**
+     * A modo de test, esta función la he añadido a rcanciones.js
+     * pero debería estar en un módulo propio (estilo gestorBD)
+     * y sería invocada desde cualquier petición que muestre una vista.
+     *
+     * @param fichero string con la ruta al html a renderizar
+     * @param variables colección con las variables necesarias para ESTA vista
+     * @param sesion el objeto sesión para extraer las variables comunes.
+     * @returns Respuesta a enviar.
+     */
+    function mostrarVista(ruta, variables, sesion) {
+        //Las variables que siempre vamos a utilizar
+        variables["tipo"] = sesion.rol;
+        variables["email"] = sesion.usuario;
+        variables["dinero"] = sesion.dinero;
+
+        return swig.renderFile(ruta, variables);
+    }
 };

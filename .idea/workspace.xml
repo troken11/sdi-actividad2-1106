@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba2603a2-ee55-497d-8977-f397d94f3035" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/modules/gestorBD.js" beforeDir="false" afterPath="$PROJECT_DIR$/modules/gestorBD.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/async/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/async/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/async/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/async/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/async/component.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/async/lib/async.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/async/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/async/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/rapirest.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/rapirest.js" afterDir="false" />
+    <list default="true" id="ba2603a2-ee55-497d-8977-f397d94f3035" name="Default Changelist" comment="2A Acabada">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/routes/rusuarios.js" afterPath="$PROJECT_DIR$/routes/rusuarios.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,47 +17,62 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file leaf-file-name="gestorBD.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="63" column="33" selection-start-line="63" selection-start-column="27" selection-end-line="63" selection-end-column="33" />
+            <state relative-caret-position="348">
+              <caret line="315" column="46" lean-forward="false" selection-start-line="315" selection-start-column="46" selection-end-line="315" selection-end-column="46" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file leaf-file-name="rusuarios.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/rusuarios.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="48" selection-end-column="48" />
+            <state relative-caret-position="145">
+              <caret line="162" column="23" lean-forward="false" selection-start-line="162" selection-start-column="23" selection-end-line="162" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file leaf-file-name="home.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/home.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rapirest.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/rapirest.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="179" column="10" selection-start-line="179" selection-start-column="10" selection-end-line="179" selection-end-column="10" />
+            <state relative-caret-position="353">
+              <caret line="221" column="5" lean-forward="false" selection-start-line="221" selection-start-column="5" selection-end-line="221" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file leaf-file-name="rofertas.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/rofertas.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="75" column="46" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="46" />
+            <state relative-caret-position="969">
+              <caret line="57" column="43" lean-forward="true" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="43" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="74" column="27" selection-start-line="74" selection-start-column="27" selection-end-line="74" selection-end-column="27" />
+            <state relative-caret-position="150">
+              <caret line="73" column="52" lean-forward="true" selection-start-line="73" selection-start-column="52" selection-end-line="73" selection-end-column="52" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -83,11 +90,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>test</find>
-      <find>btien</find>
-      <find>req</find>
-      <find>req.se</find>
-      <find>&quot;/&quot;</find>
       <find>&quot;/home&quot;</find>
       <find>home</find>
       <find>routerUsuarioToken</find>
@@ -109,6 +111,15 @@
       <find>object</find>
       <find>update</find>
       <find>vendida</find>
+      <find>for</find>
+      <find>remove</find>
+      <find>mensajesde</find>
+      <find>objectId</find>
+      <find>deleteMan</find>
+      <find>eliminar</find>
+      <find>render</find>
+      <find>renderFile</find>
+      <find>infoNa</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -129,17 +140,27 @@
         <option value="$PROJECT_DIR$/views/base.html" />
         <option value="$PROJECT_DIR$/views/bofertalista.html" />
         <option value="$PROJECT_DIR$/views/bofertanueva.html" />
-        <option value="$PROJECT_DIR$/views/home.html" />
         <option value="$PROJECT_DIR$/views/busuariolista.html" />
         <option value="$PROJECT_DIR$/views/bofertatienda.html" />
         <option value="$PROJECT_DIR$/views/bofertacompradas.html" />
-        <option value="$PROJECT_DIR$/routes/rusuarios.js" />
-        <option value="$PROJECT_DIR$/routes/rofertas.js" />
-        <option value="$PROJECT_DIR$/modules/gestorBD.js" />
         <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/modules/gestorBD.js" />
+        <option value="$PROJECT_DIR$/modules/vistaHelper.js" />
+        <option value="$PROJECT_DIR$/routes/rofertas.js" />
         <option value="$PROJECT_DIR$/routes/rapirest.js" />
+        <option value="$PROJECT_DIR$/views/home.html" />
+        <option value="$PROJECT_DIR$/routes/rusuarios.js" />
       </list>
     </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="591" />
@@ -147,11 +168,21 @@
     <option name="height" value="1104" />
   </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -188,6 +219,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -224,22 +256,21 @@
     </option>
   </component>
   <component name="RunManager" selected="Node.js.app.js">
-    <configuration name="app.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="app.js" working-dir="$PROJECT_DIR$">
-      <method v="2" />
-    </configuration>
-    <configuration name="hello-world-server.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="hello-world-server.js" working-dir="$PROJECT_DIR$">
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Node.js.app.js" />
-      <item itemvalue="Node.js.hello-world-server.js" />
+    <configuration name="app.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="app.js" working-dir="$PROJECT_DIR$" />
+    <configuration name="hello-world-server.js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" nameIsGenerated="true" path-to-js-file="hello-world-server.js" working-dir="$PROJECT_DIR$" />
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Node.js.app.js" />
+      <item index="1" class="java.lang.String" itemvalue="Node.js.hello-world-server.js" />
     </list>
     <recent_temporary>
-      <list>
-        <item itemvalue="Node.js.app.js" />
-        <item itemvalue="Node.js.hello-world-server.js" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.app.js" />
+        <item index="1" class="java.lang.String" itemvalue="Node.js.hello-world-server.js" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -260,6 +291,7 @@
       <workItem from="1556281467734" duration="9087000" />
       <workItem from="1556300710075" duration="6476000" />
       <workItem from="1556381679017" duration="19261000" />
+      <workItem from="1556536125797" duration="5748000" />
     </task>
     <task id="LOCAL-00001" summary="Creación del proyecto">
       <created>1555340854851</created>
@@ -359,11 +391,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556472691126</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="2A Acabada">
+      <created>1556541034174</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1556541034174</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96053000" />
+    <option name="totallyTimeSpent" value="101801000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -375,30 +414,33 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15928619" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="0" weight="0.32978722" />
-      <window_info anchor="bottom" id="Message" order="1" />
-      <window_info anchor="bottom" id="Find" order="2" weight="0.32885906" />
-      <window_info active="true" anchor="bottom" id="Run" order="3" visible="true" weight="0.32577905" />
-      <window_info anchor="bottom" id="Debug" order="4" weight="0.39235127" />
-      <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="7" weight="0.32981783" />
-      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32981783" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.33144477" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15885799" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32981783" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32488114" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32981783" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33144477" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39144215" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978722" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32885906" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Creación del proyecto" />
@@ -415,179 +457,235 @@
     <MESSAGE value="Empezando mensajes" />
     <MESSAGE value="Convers y mensajes creados" />
     <MESSAGE value="Avanzando API REST" />
-    <option name="LAST_COMMIT_MESSAGE" value="Avanzando API REST" />
+    <MESSAGE value="2A Acabada" />
+    <option name="LAST_COMMIT_MESSAGE" value="2A Acabada" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/routes/rapirest.js</url>
-          <line>163</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-      </breakpoints>
+      <option name="time" value="3" />
     </breakpoint-manager>
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1071">
+          <caret line="63" column="33" lean-forward="false" selection-start-line="63" selection-start-column="27" selection-end-line="63" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/rusuarios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="48" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/rofertas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="75" column="46" lean-forward="false" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1258">
+          <caret line="74" column="27" lean-forward="false" selection-start-line="74" selection-start-column="27" selection-end-line="74" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/rapirest.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3043">
+          <caret line="179" column="10" lean-forward="false" selection-start-line="179" selection-start-column="10" selection-end-line="179" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="1" column="30" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="30" />
+          <caret line="1" column="30" lean-forward="false" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="30" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/tienda.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1258">
-          <caret line="74" column="50" selection-start-line="74" selection-start-column="50" selection-end-line="74" selection-end-column="50" />
+          <caret line="74" column="50" lean-forward="false" selection-start-line="74" selection-start-column="50" selection-end-line="74" selection-end-column="50" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/bcancion.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="9" column="36" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="36" />
+          <caret line="9" column="36" lean-forward="false" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/bcancionModificar.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-505" />
+        <state relative-caret-position="-505">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/prueba.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="9" column="28" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="28" />
+          <caret line="9" column="28" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/bregistro.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
-          <caret line="39" column="29" selection-start-line="39" selection-start-column="29" selection-end-line="39" selection-end-column="29" />
+          <caret line="39" column="29" lean-forward="false" selection-start-line="39" selection-start-column="29" selection-end-line="39" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+          <caret line="14" column="28" lean-forward="false" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/base.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
-          <caret line="18" column="31" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+          <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/bidentificacion.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
-          <caret line="22" column="35" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
+          <caret line="22" column="35" lean-forward="false" selection-start-line="22" selection-start-column="35" selection-end-line="22" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/bofertanueva.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="463">
-          <caret line="30" column="65" selection-start-line="30" selection-start-column="65" selection-end-line="30" selection-end-column="65" />
+          <caret line="30" column="65" lean-forward="false" selection-start-line="30" selection-start-column="65" selection-end-line="30" selection-end-column="65" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/hello-world-server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="5" column="56" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
-          <folding />
+          <caret line="5" column="56" lean-forward="false" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/bofertalista.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="87">
-          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+          <caret line="27" column="17" lean-forward="false" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/busuariolista.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
-          <caret line="23" column="70" selection-start-line="23" selection-start-column="70" selection-end-line="23" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/home.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+          <caret line="23" column="70" lean-forward="false" selection-start-line="23" selection-start-column="70" selection-end-line="23" selection-end-column="70" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/bofertatienda.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
-          <caret line="20" column="10" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+          <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/bofertacompradas.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
-          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+          <caret line="21" column="43" lean-forward="false" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/widget-login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-480" />
+        <state relative-caret-position="-480">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/widget-canciones.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-457" />
+        <state relative-caret-position="-457">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/cliente.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-682" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/rusuarios.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="48" selection-end-column="48" />
+        <state relative-caret-position="-682">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="74" column="27" selection-start-line="74" selection-start-column="27" selection-end-line="74" selection-end-column="27" />
+        <state relative-caret-position="150">
+          <caret line="73" column="52" lean-forward="true" selection-start-line="73" selection-start-column="52" selection-end-line="73" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
+    <entry file="file://$PROJECT_DIR$/modules/vistaHelper.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="63" column="33" selection-start-line="63" selection-start-column="27" selection-end-line="63" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/rofertas.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="75" column="46" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="46" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/rapirest.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="179" column="10" selection-start-line="179" selection-start-column="10" selection-end-line="179" selection-end-column="10" />
+        <state relative-caret-position="353">
+          <caret line="221" column="5" lean-forward="false" selection-start-line="221" selection-start-column="5" selection-end-line="221" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/rofertas.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="969">
+          <caret line="57" column="43" lean-forward="true" selection-start-line="57" selection-start-column="43" selection-end-line="57" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/home.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="27" lean-forward="true" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/gestorBD.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="315" column="46" lean-forward="false" selection-start-line="315" selection-start-column="46" selection-end-line="315" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/rusuarios.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="162" column="23" lean-forward="false" selection-start-line="162" selection-start-column="23" selection-end-line="162" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
     </entry>
