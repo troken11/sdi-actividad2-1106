@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="widget-canciones" >
+        <input type="text" class="form-control" placeholder="Filtrar por nombre" id="filtro-nombre"/>
+        <button class="btn" onclick="cargarTienda()" >Actualizar</button>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Detalles</th>
+                <th>Precio</th>
+                <th>Vendedor</th>
+                <th class="col-md-1"></th>
+            </tr>
+            </thead>
+            <tbody id="tablaCuerpo">
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script>
+    window.history.pushState("", "", "/cliente.html?w=misofertas");
+
+    var ofertas;
+    function cargarTienda(){
+        $.ajax({
+            url: URLbase + "/misofertas",
+            type: "GET",
+            data: { },
+            dataType: 'json',
+            headers: { "token": token },
+            success: function(respuesta) {
+                ofertas = respuesta; actualizarTabla(ofertas);
+            },
+            error : function (error){
+                $( "#contenedor-principal" ).load("widget-login.html");
+            }
+        });
+    }
+    function actualizarTabla(cancionesMostrar){
+        $( "#tablaCuerpo" ).empty(); // Vaciar la tabla
+        for (i = 0; i < cancionesMostrar.length; i++) {
+            $( "#tablaCuerpo" ).append(
+                "<tr id="+cancionesMostrar[i]._id+">"+
+                "<td>"+cancionesMostrar[i].titulo+"</td>" +
+                "<td>"+cancionesMostrar[i].detalles+"</td>" +
+                "<td>"+cancionesMostrar[i].precio+" €</td>" +
+                "<td>"+cancionesMostrar[i].autor+"</td>" +
+                "<td><button class='btn btn-primary' onclick='mostrarConversacion()'>Enviar mensaje</button>"+
+                "</tr>" );
+            // Mucho cuidado con las comillas del eliminarCancion
+            //la id tiene que ir entre comillas ' '
+        }
+    }
+
+    cargarTienda();
+
+    function mostrarConversacion() {
+        open("widget-tienda.html",'','top=300,left=300,width=300,height=300') ;
+       // $( "#contenedor-principal" ).load( "widget-conversacion.html");
+    }
+
+    function abrir() {
+        open('pagina.html','','top=300,left=300,width=300,height=300') ;
+    }
+    /*
+    function detalles(_id) {
+        idCancionSeleccionada = _id;
+        $( "#contenedor-principal" ).load( "widget-detalles.html");
+    }
+    function widgetAgregar() {
+        $( "#contenedor-principal" ).load( "widget-agregar.html");
+    }
+    $('#filtro-nombre').on('input',function(e){
+        var cancionesFiltradas = [];
+        var nombreFiltro = $("#filtro-nombre").val();
+        for (i = 0; i < ofertas.length; i++) {
+            if (ofertas[i].nombre.indexOf(nombreFiltro) != -1 ){
+                cancionesFiltradas.push(ofertas[i]);
+            }
+        }
+        actualizarTabla(cancionesFiltradas);
+    });
+    var precioDsc = true;
+    function ordenarPorPrecio(){
+        if (precioDsc){
+            ofertas.sort(function(a, b) {
+                return parseFloat(a.precio) - parseFloat(b.precio); });
+        } else {
+            ofertas.sort(function(a, b) {
+                return parseFloat(b.precio) - parseFloat(a.precio);
+            });
+        }
+        actualizarTabla(ofertas);
+        precioDsc = !precioDsc; //invertir
+    }
+    function ordenarPorNombre(){
+        ofertas.sort(function(a, b) {
+            if(a.nombre > b.nombre )
+                return 1;
+            if(a.nombre < b.nombre )
+                return -1;
+            return 0;
+        });
+        actualizarTabla(ofertas);
+    }
+    */
+</script>
+</html>

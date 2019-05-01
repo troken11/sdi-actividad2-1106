@@ -24,7 +24,7 @@ module.exports = function(app, gestorBD) {
         });
     });
     app.get("/api/tienda", function(req, res) {
-        gestorBD.obtenerOfertas( {autor: {$ne: res.usuario}, eliminada: false} , function(ofertas) {
+        gestorBD.obtenerOfertas( {autor: {$ne: res.usuario}, eliminada: false, comprador: null} , function(ofertas) {
             if (ofertas == null) {
                 res.status(500);
                 res.json({ error : "se ha producido un error" })
@@ -144,7 +144,7 @@ module.exports = function(app, gestorBD) {
                 $or: [{autor: res.usuario}, {interesado: res.usuario}]
             };
             gestorBD.obtenerMensajesDeConver(posibleConv, function (conv) {
-                if (conv == null || conv.length == 0) {
+                if (conv == null) {
                     // NO existen. ERROR
                     res.status(500);
                     res.json({error: "se ha producido un error"});
@@ -201,6 +201,22 @@ module.exports = function(app, gestorBD) {
                 }
             });
         }
+    });
+
+    app.get("/api/conversaciones", function(req, res) {
+        var criterio = {$or: [{autor: res.usuario}, {interesado: res.usuario}]};
+        gestorBD.obtenerConversaciones(criterio, function (conv) {
+            if (conv == null) {
+                // NO. ERROR
+                res.status(500);
+                res.json({error: "se ha producido un error"});
+            } else {
+                // SI.
+                // Creo un mensaje para esa conversacion
+                res.status(200);
+                res.send( JSON.stringify(conv) );
+            }
+        });
     });
 
     function crearMensaje(res, mensaje){

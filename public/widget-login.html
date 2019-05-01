@@ -40,7 +40,7 @@
                 console.log(respuesta.token); // <- Prueba
                 token = respuesta.token;
                 Cookies.set('token', respuesta.token);
-                $( "#contenedor-principal" ).load( "widget-canciones.html");
+                $( "#contenedor-principal" ).load( "widget-tienda.html");
             },
             error : function (error){
                 Cookies.remove('token');

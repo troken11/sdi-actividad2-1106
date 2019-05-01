@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="page-wrap">
+
+    <h2 id="titleh2">Conversacion</h2>
+
+    <p id="name-area"></p>
+
+    <div id="chat-wrap">
+        <form id="send-message-area">
+            <p>Your message: </p>
+            <div id="chat-box"></div>
+            <input type="text" id="message-send" maxlength = '400'/>
+            <a class="btn" onClick="enviarMensaje()"><i class="ion-ios-arrow-down">Enviar</i></a>
+        </form>
+    </div>
+
+</div>
+</body>
+
+<script>
+    window.history.pushState("", "", "/cliente.html?w=conversacion");
+
+    var conversaciones;
+    var data;
+    function cargarConversacion(){
+        if(idOferta != null){
+            $("#titleh2").after("<h3><span>Oferta: "+titulo+"</span></h3><h4><span>Vendedor: "+autorOferta+"</span></h4>");
+
+            "<h3><span>"+titulo+"</span></h3>"
+            console.log(idOferta, titulo, autorOferta);
+            $.ajax({
+                url: URLbase + "/mensaje/mostrar/" + idOferta,
+                type: "GET",
+                data: { },
+                dataType: 'json',
+                headers: { "token": token },
+                success: function(respuesta) {
+                    console.log(respuesta);
+                    procesarRespuesta(respuesta);
+                    //ofertas = respuesta;
+                    //actualizarTabla(ofertas);
+                },
+                error : function (error){
+                    $( "#contenedor-principal" ).load("widget-tienda.html");
+                }
+            });
+        }
+        else{
+            $( "#contenedor-principal" ).load("widget-tienda.html");
+        }
+    }
+    function actualizarTabla(cancionesMostrar){
+
+    }
+
+    function procesarRespuesta(respuesta){
+        if(respuesta.length == 0){
+
+        }
+        else{
+
+        }
+    }
+    cargarConversacion();
+
+    //cargarTienda();
+
+    function enviarMensaje() {
+       console.log("ENVIANDO...");
+    }
+
+    function abrir() {
+        open('pagina.html','','top=300,left=300,width=300,height=300') ;
+    }
+    /*
+    function detalles(_id) {
+        idCancionSeleccionada = _id;
+        $( "#contenedor-principal" ).load( "widget-detalles.html");
+    }
+    function widgetAgregar() {
+        $( "#contenedor-principal" ).load( "widget-agregar.html");
+    }
+    $('#filtro-nombre').on('input',function(e){
+        var cancionesFiltradas = [];
+        var nombreFiltro = $("#filtro-nombre").val();
+        for (i = 0; i < ofertas.length; i++) {
+            if (ofertas[i].nombre.indexOf(nombreFiltro) != -1 ){
+                cancionesFiltradas.push(ofertas[i]);
+            }
+        }
+        actualizarTabla(cancionesFiltradas);
+    });
+    var precioDsc = true;
+    function ordenarPorPrecio(){
+        if (precioDsc){
+            ofertas.sort(function(a, b) {
+                return parseFloat(a.precio) - parseFloat(b.precio); });
+        } else {
+            ofertas.sort(function(a, b) {
+                return parseFloat(b.precio) - parseFloat(a.precio);
+            });
+        }
+        actualizarTabla(ofertas);
+        precioDsc = !precioDsc; //invertir
+    }
+    function ordenarPorNombre(){
+        ofertas.sort(function(a, b) {
+            if(a.nombre > b.nombre )
+                return 1;
+            if(a.nombre < b.nombre )
+                return -1;
+            return 0;
+        });
+        actualizarTabla(ofertas);
+    }
+    */
+</script>
+</html>
