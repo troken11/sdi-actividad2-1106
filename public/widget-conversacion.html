@@ -13,8 +13,8 @@
 
     <div id="chat-wrap">
         <form id="send-message-area">
-            <p>Your message: </p>
-            <div id="chat-box"></div>
+            <div id="chat-box">
+            </div>
             <input type="text" id="message-send" maxlength = '400'/>
             <a class="btn" onClick="enviarMensaje()"><i class="ion-ios-arrow-down">Enviar</i></a>
         </form>
@@ -28,12 +28,17 @@
 
     var conversaciones;
     var data;
+
+    function cargarPagina(){
+        if(idOferta != null){
+            $("#titleh2").after("<h3><span>Oferta: "+titulo+"</span></h3><h4><span>Hablando con: "+autorOferta+"</span></h4>");
+        }
+        else{
+            $( "#contenedor-principal" ).load("widget-tienda.html");
+        }
+    }
     function cargarConversacion(){
         if(idOferta != null){
-            $("#titleh2").after("<h3><span>Oferta: "+titulo+"</span></h3><h4><span>Vendedor: "+autorOferta+"</span></h4>");
-
-            "<h3><span>"+titulo+"</span></h3>"
-            console.log(idOferta, titulo, autorOferta);
             $.ajax({
                 url: URLbase + "/mensaje/mostrar/" + idOferta,
                 type: "GET",
@@ -43,36 +48,88 @@
                 success: function(respuesta) {
                     console.log(respuesta);
                     procesarRespuesta(respuesta);
-                    //ofertas = respuesta;
-                    //actualizarTabla(ofertas);
                 },
                 error : function (error){
                     $( "#contenedor-principal" ).load("widget-tienda.html");
                 }
             });
         }
-        else{
-            $( "#contenedor-principal" ).load("widget-tienda.html");
-        }
-    }
-    function actualizarTabla(cancionesMostrar){
-
     }
 
     function procesarRespuesta(respuesta){
-        if(respuesta.length == 0){
-
-        }
-        else{
-
+        if(respuesta.length != 0){
+            for(var i=0; i<respuesta.length; i++){
+                if(respuesta[i].autor == autorOferta || respuesta[i].interesado == autorOferta){
+                    mostrarMensajes(respuesta[i].mensajes);
+                }
+            }
         }
     }
+
+    function mostrarMensajes(mensajes){
+        var msgsToAdd = "";
+        for(var i=0; i<mensajes.length; i++){
+            var leido = "";
+            if(!mensajes[i].leido && mensajes[i].autor == autorOferta){
+                marcarComoLeido(mensajes[i]._id);
+            }
+            if(mensajes[i].leido){
+                leido = "  <i>(leido)</i>";
+            }
+            msgsToAdd += "<div id=\"message\"><p class=\"message-line\">"+mensajes[i].fecha+
+                " <strong>"+mensajes[i].autor+": </strong>"+mensajes[i].texto+leido+"</p></div>";
+        }
+        $("#chat-box").empty();
+        $("#chat-box").append(msgsToAdd);
+    }
+
+    function marcarComoLeido(id){
+        if(id != null){
+            $.ajax({
+                url: URLbase + "/mensaje/leido",
+                type: "POST",
+                data: {
+                    id: id
+                },
+                dataType: 'json',
+                headers: { "token": token },
+                success: function(respuesta) {
+
+                },
+                error : function (error){
+
+                }
+            });
+        }
+    }
+
+    cargarPagina();
     cargarConversacion();
+    setInterval(function(){ cargarConversacion(); }, 4000);
 
     //cargarTienda();
 
     function enviarMensaje() {
-       console.log("ENVIANDO...");
+        var mensaje = $("#message-send").val();
+        $("#message-send").val("");
+        $.ajax({
+            url: URLbase + "/mensaje/enviar",
+            type: "POST",
+            data: {
+                receptor : autorOferta,
+                texto : mensaje,
+                idOferta : idOferta
+            },
+            dataType: 'json',
+            headers: { "token": token },
+            success: function(respuesta) {
+                console.log("ENVIADO");
+                cargarConversacion();
+            },
+            error : function (error){
+                $( "#contenedor-principal" ).load("widget-tienda.html");
+            }
+        });
     }
 
     function abrir() {

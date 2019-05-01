@@ -141,7 +141,7 @@ module.exports = function(app, gestorBD) {
         if(req.params.id != null && req.params.id.length > 0){
             var posibleConv = {
                 idOferta: gestorBD.mongo.ObjectID(req.params.id),
-                $or: [{autor: res.usuario}, {interesado: res.usuario}]
+                persona: res.usuario
             };
             gestorBD.obtenerMensajesDeConver(posibleConv, function (conv) {
                 if (conv == null) {
@@ -175,7 +175,7 @@ module.exports = function(app, gestorBD) {
         }
     });
 
-    app.post("/api/conversacion/eliminar", function(req, res) {
+    app.delete("/api/conversacion", function(req, res) {
         // Recibe id (de conversacion) y res.usuario
         // Eliminar conversacion con esa _id y mensajes con esa _id
         // Poner tambien un condicional para que se pueda transformar en ObjectId
@@ -204,8 +204,8 @@ module.exports = function(app, gestorBD) {
     });
 
     app.get("/api/conversaciones", function(req, res) {
-        var criterio = {$or: [{autor: res.usuario}, {interesado: res.usuario}]};
-        gestorBD.obtenerConversaciones(criterio, function (conv) {
+        var criterio = {persona: res.usuario};
+        gestorBD.obtenerConversacionesConTitulos(criterio, function (conv) {
             if (conv == null) {
                 // NO. ERROR
                 res.status(500);
@@ -214,7 +214,15 @@ module.exports = function(app, gestorBD) {
                 // SI.
                 // Creo un mensaje para esa conversacion
                 res.status(200);
-                res.send( JSON.stringify(conv) );
+                for(var i=0; i<conv.length; i++){
+                    if(conv[i].autor == res.usuario){
+                        conv[i].autor = "Yo"
+                    }
+                    if(conv[i].interesado == res.usuario){
+                        conv[i].interesado = "Yo"
+                    }
+                }
+                res.send(JSON.stringify(conv));
             }
         });
     });

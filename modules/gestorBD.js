@@ -225,6 +225,41 @@ module.exports = {
         });
     },
 
+    obtenerConversacionesConTitulos : function(criterio,funcionCallback){
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var junta = [
+                    {
+                        $match:
+                            {
+                                $or: [{ autor: criterio.persona }, { interesado: criterio.persona }],
+                            }
+                    },
+                    {
+                        $lookup:
+                            {
+                                from: "ofertas",
+                                localField: "idOferta",
+                                foreignField: "_id",
+                                as: "oferta"
+                            }
+                    },
+                ];
+                var collection = db.collection('conversaciones');
+                collection.aggregate(junta).toArray(function(err, usuarios) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(usuarios);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+
     crearMensaje: function(mensaje, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
@@ -249,6 +284,13 @@ module.exports = {
             } else {
                 var collection = db.collection('conversaciones');
                 var junta = [
+                    {
+                        $match:
+                            {
+                                $or: [{ autor: criterio.persona }, { interesado: criterio.persona }],
+                                idOferta: criterio.idOferta
+                            }
+                    },
                     {
                         $lookup:
                             {
