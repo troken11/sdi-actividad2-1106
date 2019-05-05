@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="widget-canciones" >
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Detalles</th>
+                <th>Precio</th>
+                <th>Vendedor</th>
+                <th class="col-md-1"></th>
+            </tr>
+            </thead>
+            <tbody id="tablaCuerpo">
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script>
+    window.history.pushState("", "", "/cliente.html?w=tienda");
+
+    function cargarTienda(){
+        $.ajax({
+            url: URLbase + "/tienda",
+            type: "GET",
+            data: { },
+            dataType: 'json',
+            headers: { "token": token },
+            success: function(respuesta) {
+                ofertas = respuesta; actualizarTabla(ofertas);
+            },
+            error : function (error){
+                $( "#contenedor-principal" ).load("widget-login.html");
+            }
+        });
+    }
+    function actualizarTabla(ofertasAMostrar){
+        $( "#tablaCuerpo" ).empty(); // Vaciar la tabla
+        for (i = 0; i < ofertasAMostrar.length; i++) {
+            $( "#tablaCuerpo" ).append(
+                "<tr class='oferta'>"+
+                "<td class='hidden'><span id='"+i+"-id'>"+ofertasAMostrar[i]._id+"</span></td>" +
+                "<td><span id='"+i+"-titulo'>"+ofertasAMostrar[i].titulo+"</span></td>" +
+                "<td>"+ofertasAMostrar[i].detalles+"</td>" +
+                "<td>"+ofertasAMostrar[i].precio+" €</td>" +
+                "<td><span id='"+i+"-autor'>"+ofertasAMostrar[i].autor+"</span></td>" +
+                "<td><button id='conversar' class='btn btn-primary' onclick='mostrarConversacion("+i+")'>Enviar mensaje</button>"+
+                "</tr>" );
+            // Mucho cuidado con las comillas del eliminarCancion
+            //la id tiene que ir entre comillas ' '
+        }
+    }
+
+    cargarTienda();
+
+    function mostrarConversacion(i) {
+        idOferta = document.getElementById(i+'-id').innerHTML;
+        titulo = document.getElementById(i+'-titulo').innerHTML;
+        autorOferta = document.getElementById(i+'-autor').innerHTML;
+        $( "#contenedor-principal" ).load( "widget-conversacion.html");
+    }
+
+    function abrir() {
+        open('pagina.html','','top=300,left=300,width=300,height=300') ;
+    }
+    /*
+    function detalles(_id) {
+        idCancionSeleccionada = _id;
+        $( "#contenedor-principal" ).load( "widget-detalles.html");
+    }
+    function widgetAgregar() {
+        $( "#contenedor-principal" ).load( "widget-agregar.html");
+    }
+    $('#filtro-nombre').on('input',function(e){
+        var cancionesFiltradas = [];
+        var nombreFiltro = $("#filtro-nombre").val();
+        for (i = 0; i < ofertas.length; i++) {
+            if (ofertas[i].nombre.indexOf(nombreFiltro) != -1 ){
+                cancionesFiltradas.push(ofertas[i]);
+            }
+        }
+        actualizarTabla(cancionesFiltradas);
+    });
+    var precioDsc = true;
+    function ordenarPorPrecio(){
+        if (precioDsc){
+            ofertas.sort(function(a, b) {
+                return parseFloat(a.precio) - parseFloat(b.precio); });
+        } else {
+            ofertas.sort(function(a, b) {
+                return parseFloat(b.precio) - parseFloat(a.precio);
+            });
+        }
+        actualizarTabla(ofertas);
+        precioDsc = !precioDsc; //invertir
+    }
+    function ordenarPorNombre(){
+        ofertas.sort(function(a, b) {
+            if(a.nombre > b.nombre )
+                return 1;
+            if(a.nombre < b.nombre )
+                return -1;
+            return 0;
+        });
+        actualizarTabla(ofertas);
+    }
+    */
+</script>
+</html>
