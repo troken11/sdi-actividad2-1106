@@ -12,11 +12,12 @@
     <p id="name-area"></p>
 
     <div id="chat-wrap">
+        <p id="no-leidos"></p>
         <form id="send-message-area">
             <div id="chat-box">
             </div>
             <input type="text" id="message-send" maxlength = '400'/>
-            <a class="btn" onClick="enviarMensaje()"><i class="ion-ios-arrow-down">Enviar</i></a>
+            <a id="enviar" class="btn" onClick="enviarMensaje()"><i class="ion-ios-arrow-down">Enviar</i></a>
         </form>
     </div>
 
@@ -68,6 +69,7 @@
 
     function mostrarMensajes(mensajes){
         var msgsToAdd = "";
+        var noLeidos = 0;
         for(var i=0; i<mensajes.length; i++){
             var leido = "";
             if(!mensajes[i].leido && mensajes[i].autor == autorOferta){
@@ -76,11 +78,16 @@
             if(mensajes[i].leido){
                 leido = "  <i>(leido)</i>";
             }
+            else{
+                noLeidos++;
+            }
             msgsToAdd += "<div id=\"message\"><p class=\"message-line\">"+mensajes[i].fecha+
                 " <strong>"+mensajes[i].autor+": </strong>"+mensajes[i].texto+leido+"</p></div>";
         }
         $("#chat-box").empty();
         $("#chat-box").append(msgsToAdd);
+        $("#no-leidos").empty();
+        $("#no-leidos").append("Mensajes no leidos: " + noLeidos.toString());
     }
 
     function marcarComoLeido(id){

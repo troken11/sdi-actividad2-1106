@@ -260,6 +260,24 @@ module.exports = {
         });
     },
 
+    obtenerNumeroNoLeidos : function(criterio,funcionCallback){
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('mensajes');
+                collection.find(criterio).toArray(function(err, usuarios) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(usuarios);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+
     crearMensaje: function(mensaje, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
@@ -313,8 +331,6 @@ module.exports = {
         });
     },
 
-
-
     leerMensaje: function(criterio, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
@@ -364,118 +380,44 @@ module.exports = {
                 });
             }
         });
-    }
-    /*
-    obtenerCancionesPg : function(criterio,pg,funcionCallback){
-        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
-            if (err) {
-                funcionCallback(null);
-            } else {
-                var collection = db.collection('ofertas');
-                collection.count(function(err, count){
-                    collection.find(criterio).skip( (pg-1)*4 ).limit( 4 ) .toArray(function(err, ofertas) {
-                        if (err) {
-                            funcionCallback(null);
-                        } else {
-                            funcionCallback(ofertas, count);
-                        }
-                        db.close();
-                    });
-                });
-            }
-        });
     },
-    obtenerCompras : function(criterio,funcionCallback){
+
+
+    /**
+     * RESET BD
+     */
+
+    resetBD: function(funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('compras');
-                collection.find(criterio).toArray(function(err, usuarios) {
+                db.dropDatabase(function(err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
-                        funcionCallback(usuarios);
-                    }
-                    db.close();
-                });
-            }
-        });
-    },
-    insertarCompra: function(compra, funcionCallback) {
-        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
-            if (err) {
-                funcionCallback(null);
-            } else {
-                var collection = db.collection('compras');
-                collection.insert(compra, function(err, result) {
-                    if (err) {
-                        funcionCallback(null);
-                    } else {
-                        funcionCallback(result.ops[0]._id);
+                        funcionCallback(1);
                     } db.close();
                 });
             }
         });
     },
-    eliminarCancion : function(criterio, funcionCallback) {
-        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
-            if (err) {
-                funcionCallback(null);
-            } else {
-                var collection = db.collection('ofertas');
-                collection.remove(criterio, function(err, result) {
-                    if (err) {
-                        funcionCallback(null);
-                    } else {
-                        funcionCallback(result);
-                    }
-                    db.close();
-                });
-            }
-        });
-    },
-    obtenerUsuarios : function(criterio,funcionCallback){
-    this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
-        if (err) {
-            funcionCallback(null);
-        } else {
-            var collection = db.collection('usuarios');
-            collection.find(criterio).toArray(function(err, usuarios) {
-                if (err) {
-                    funcionCallback(null);
-                } else {
-                    funcionCallback(usuarios);
-                }
-                db.close();
-            });
-        }
-    });
-    },
-    modificarCancion : function(criterio, cancion, funcionCallback) {
-        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
-            if (err) {
-                funcionCallback(null);
-            } else {
-                var collection = db.collection('ofertas');
-                collection.update(criterio, {$set: cancion}, function(err, result) {
-                    if (err) {
-                        funcionCallback(null);
-                    } else {
-                        funcionCallback(result);
-                    }
-                    db.close();
-                });
-            }
-        });
-    },
-
-    insertarUsuario : function(usuario, funcionCallback) {
+    insertarAdmin : function(seguro, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 var collection = db.collection('usuarios');
+
+                var usuario = {
+                    email : "admin@email.com",
+                    password : seguro,
+                    name : "Administrador",
+                    lastname : "del Sistema",
+                    type : "Admin",
+                    money : 0.0,
+                    eliminado: false
+                };
                 collection.insert(usuario, function(err, result) {
                     if (err) {
                         funcionCallback(null);
@@ -487,39 +429,234 @@ module.exports = {
             }
         });
     },
-    obtenerCanciones : function(criterio,funcionCallback){
+
+    insertarUsuariosInicio : function(usuarios, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
-                var collection = db.collection('ofertas');
-                collection.find(criterio).toArray(function(err, ofertas) {
+                var collection = db.collection('usuarios');
+                collection.insertMany(usuarios, function(err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
-                        funcionCallback(ofertas);
+                        funcionCallback(1);
                     }
                     db.close();
                 });
             }
         });
     },
-    insertarCancion : function(cancion, funcionCallback) {
+
+    insertarOfertasInicio : function(ofertas, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 var collection = db.collection('ofertas');
-                collection.insert(cancion, function(err, result) {
+                collection.insertMany(ofertas, function(err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
-                        funcionCallback(result.ops[0]._id);
+                        funcionCallback(1);
                     }
                     db.close();
                 });
             }
         });
+    },
+
+    insertarConversacionesInicio : function(convers, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('conversaciones');
+                collection.insertMany(convers, function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(1);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+
+    insertarMensajesInicio : function(mensajes, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var collection = db.collection('mensajes');
+                collection.insertMany(mensajes, function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(1);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+
+/*
+obtenerCancionesPg : function(criterio,pg,funcionCallback){
+    this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+        if (err) {
+            funcionCallback(null);
+        } else {
+            var collection = db.collection('ofertas');
+            collection.count(function(err, count){
+                collection.find(criterio).skip( (pg-1)*4 ).limit( 4 ) .toArray(function(err, ofertas) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(ofertas, count);
+                    }
+                    db.close();
+                });
+            });
+        }
+    });
+},
+obtenerCompras : function(criterio,funcionCallback){
+    this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+        if (err) {
+            funcionCallback(null);
+        } else {
+            var collection = db.collection('compras');
+            collection.find(criterio).toArray(function(err, usuarios) {
+                if (err) {
+                    funcionCallback(null);
+                } else {
+                    funcionCallback(usuarios);
+                }
+                db.close();
+            });
+        }
+    });
+},
+insertarCompra: function(compra, funcionCallback) {
+    this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+        if (err) {
+            funcionCallback(null);
+        } else {
+            var collection = db.collection('compras');
+            collection.insert(compra, function(err, result) {
+                if (err) {
+                    funcionCallback(null);
+                } else {
+                    funcionCallback(result.ops[0]._id);
+                } db.close();
+            });
+        }
+    });
+},
+eliminarCancion : function(criterio, funcionCallback) {
+    this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+        if (err) {
+            funcionCallback(null);
+        } else {
+            var collection = db.collection('ofertas');
+            collection.remove(criterio, function(err, result) {
+                if (err) {
+                    funcionCallback(null);
+                } else {
+                    funcionCallback(result);
+                }
+                db.close();
+            });
+        }
+    });
+},
+obtenerUsuarios : function(criterio,funcionCallback){
+this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+    if (err) {
+        funcionCallback(null);
+    } else {
+        var collection = db.collection('usuarios');
+        collection.find(criterio).toArray(function(err, usuarios) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                funcionCallback(usuarios);
+            }
+            db.close();
+        });
     }
-    */
+});
+},
+modificarCancion : function(criterio, cancion, funcionCallback) {
+    this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+        if (err) {
+            funcionCallback(null);
+        } else {
+            var collection = db.collection('ofertas');
+            collection.update(criterio, {$set: cancion}, function(err, result) {
+                if (err) {
+                    funcionCallback(null);
+                } else {
+                    funcionCallback(result);
+                }
+                db.close();
+            });
+        }
+    });
+},
+
+insertarUsuario : function(usuario, funcionCallback) {
+    this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+        if (err) {
+            funcionCallback(null);
+        } else {
+            var collection = db.collection('usuarios');
+            collection.insert(usuario, function(err, result) {
+                if (err) {
+                    funcionCallback(null);
+                } else {
+                    funcionCallback(result.ops[0]._id);
+                }
+                db.close();
+            });
+        }
+    });
+},
+obtenerCanciones : function(criterio,funcionCallback){
+    this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+        if (err) {
+            funcionCallback(null);
+        } else {
+            var collection = db.collection('ofertas');
+            collection.find(criterio).toArray(function(err, ofertas) {
+                if (err) {
+                    funcionCallback(null);
+                } else {
+                    funcionCallback(ofertas);
+                }
+                db.close();
+            });
+        }
+    });
+},
+insertarCancion : function(cancion, funcionCallback) {
+    this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+        if (err) {
+            funcionCallback(null);
+        } else {
+            var collection = db.collection('ofertas');
+            collection.insert(cancion, function(err, result) {
+                if (err) {
+                    funcionCallback(null);
+                } else {
+                    funcionCallback(result.ops[0]._id);
+                }
+                db.close();
+            });
+        }
+    });
+}
+*/
 };

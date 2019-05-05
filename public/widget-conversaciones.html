@@ -6,8 +6,6 @@
 </head>
 <body>
     <div id="widget-conversaciones" >
-        <input type="text" class="form-control" placeholder="Filtrar por nombre" id="filtro-nombre"/>
-        <button class="btn" onclick="cargarTienda()" >Actualizar</button>
         <table class="table table-hover">
             <thead>
             <tr>
@@ -47,14 +45,14 @@
         for (i = 0; i < conversMostrar.length; i++) {
             console.log(conversMostrar[i]);
             $( "#tablaCuerpo" ).append(
-                "<tr>"+
+                "<tr class='conversacion-abierta'>"+
                 "<td class='hidden'><span id='"+i+"-id'>"+conversMostrar[i].oferta[0]._id+"</td>" +
                 "<td class='hidden'><span id='"+i+"-idConv'>"+conversMostrar[i]._id+"</td>" +
                 "<td><span id='"+i+"-titulo'>"+conversMostrar[i].oferta[0].titulo+"</td>" +
                 "<td><span id='"+i+"-autor'>"+conversMostrar[i].autor+"</td>" +
                 "<td><span id='"+i+"-interesado'>"+conversMostrar[i].interesado+"</td>" +
-                "<td><button class='btn btn-primary' onclick='mostrarConversacion("+i+")'>Reanudar conversacion</button>"+
-                "<td><button class='btn btn-primary' onclick='eliminarConversacion("+i+")'>Eliminar conversacion</button>"+
+                "<td><button id='reanudar' class='btn btn-primary' onclick='mostrarConversacion("+i+")'>Reanudar conversacion</button>"+
+                "<td><button id='eliminar' class='btn btn-primary' onclick='eliminarConversacion("+i+")'>Eliminar conversacion</button>"+
                 "</tr>" );
             // Mucho cuidado con las comillas del eliminarCancion
             //la id tiene que ir entre comillas ' '
@@ -90,6 +88,10 @@
             headers: { "token": token },
             success: function(respuesta) {
                 cargarTienda();
+                setTimeout(
+                $("#widget-conversaciones" )
+                    .prepend("<div class='alert alert-success'>Conversacion eliminada</div>"), 1000
+                );
             },
             error : function (error){
                 $("#widget-conversaciones" )

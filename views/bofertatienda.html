@@ -10,7 +10,7 @@
                 <input type="text" class="search-query form-control"
                        placeholder="Nombre de la canción" name="busqueda"/>
                 <span class="input-group-btn">
-                    <button class="btn" type="submit">
+                    <button id="buscar" class="btn" type="submit">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
                 </span>
@@ -32,7 +32,7 @@
         </thead>
         <tbody>
         {% for oferta in ofertas %}
-        <tr>
+        <tr class="oferta">
             <td>{{ oferta.titulo }}</td>
             <td>{{ oferta.detalles }}</td>
             <td>{{ oferta.precio.toString()}} €</td>
@@ -48,7 +48,7 @@
                 <span>Vendido</span>
                 {% else %}
                 <form action="/oferta/comprar" method="post">
-                    <button type="submit" name="id" value={{oferta._id.toString()}} class="btn btn-primary">Comprar</button>
+                    <button id="comprar" type="submit" name="id" value={{oferta._id.toString()}} class="btn btn-primary">Comprar</button>
                 </form>
                 {% endif %}
             </td>
@@ -66,7 +66,7 @@
         </li>
         {% endfor %}
         <script>
-            $( "#pi-{{ actual}}" ).addClass("active");
+            $( "#pi-{{actual}}" ).addClass("active");
         </script>
     </ul>
 </div>

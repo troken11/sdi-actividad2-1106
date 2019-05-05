@@ -5,6 +5,13 @@ var app = express();
 var rest = require('request');
 app.set('rest',rest);
 
+var log4js = require('log4js');
+log4js.configure({
+    appenders: { wallapop: { type: 'file', filename: 'wallapop.log' } },
+    categories: { default: { appenders: ['wallapop'], level: 'error' } }
+});
+var logger = log4js.getLogger();
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Credentials", "true");
@@ -84,8 +91,11 @@ routerUsuarioSession.use(function(req, res, next) {
     console.log("routerUsuarioSession");
     if ( req.session.usuario ) {
         // dejamos correr la petición
+        logger.info(req.session.usuario + " - Accede a: " + req.session.destino);
         next();
     } else {
+        logger.info(req.session.usuario + " - Intenta acceder a: " + req.session.destino);
+        logger.info(req.session.usuario + " - Redireccionado a: " + req.session.destino);
         console.log("va a : "+req.session.destino)
         res.redirect("/identificarse");
     }
@@ -97,9 +107,12 @@ routerAdminSession.use(function(req, res, next) {
     if ( req.session.usuario ) {
         if(req.session.usuario == "admin@email.com"){
             // dejamos correr la petición
+            logger.info(req.session.usuario + " - Accede a: " + req.session.destino);
             next();
         }
         else{
+            logger.info(req.session.usuario + " - Intenta acceder a: " + req.session.destino);
+            logger.info(req.session.usuario + " - Redireccionado a: " + req.session.destino);
             console.log("va a : "+req.session.destino)
             res.redirect("/home");
         }
@@ -115,10 +128,13 @@ routerNormalSession.use(function(req, res, next) {
     if ( req.session.usuario ) {
         if(req.session.usuario != "admin@email.com"){
             // dejamos correr la petición
+            logger.info(req.session.usuario + " - Accede a: " + req.session.destino);
             next();
         }
         else{
-            console.log("va a : "+req.session.destino)
+            logger.info(req.session.usuario + " - Intenta acceder a: " + req.session.destino);
+            logger.info(req.session.usuario + " - Redireccionado a: " + req.session.destino);
+            console.log("va a : "+req.session.destino);
             res.redirect("/home");
         }
     } else {
@@ -128,16 +144,16 @@ routerNormalSession.use(function(req, res, next) {
 });
 
 //Aplicar routerUsuarioSession
-app.use("/ofertas/agregar",routerUsuarioSession);
-app.use("/publicaciones",routerUsuarioSession);
-app.use("/cancion/comprar",routerUsuarioSession);
-app.use("/compras",routerUsuarioSession);
-
-
-//Aplicar routerUsuarioSession
 app.use("/home",routerUsuarioSession);
-app.use("/usuario/lista",routerAdminSession);
+app.use("/desconectarse",routerUsuarioSession);
+
+app.use("/usuario/*",routerAdminSession);
+app.use("/usuario",routerAdminSession);
+app.use("/reset",routerAdminSession);
+
 app.use("/oferta/*",routerNormalSession);
+app.use("/oferta",routerNormalSession);
+
 
 
 //routerUsuarioAutor

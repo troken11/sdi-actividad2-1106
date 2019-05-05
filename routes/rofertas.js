@@ -23,6 +23,22 @@ module.exports = function(app,swig,gestorBD) {
             res.send(respuesta);
         });
     });
+    app.get("/oferta/destacadas", function(req, res) {
+        gestorBD.obtenerOfertas({
+            autor: req.session.usuario,
+            eliminada: false,
+            destacada: true
+        }, function(ofertas) {
+            var infoNav = {
+                email : req.session.usuario,
+                tipo: req.session.rol,
+                dinero: req.session.dinero,
+                ofertas: ofertas
+            };
+            var respuesta = swig.renderFile('views/bofertalista.html', infoNav);
+            res.send(respuesta);
+        });
+    });
     app.get("/oferta/tienda", function(req, res) {
         var criterio = {
             autor: {$ne: req.session.usuario},
@@ -99,7 +115,7 @@ module.exports = function(app,swig,gestorBD) {
         }
     });
     app.post("/oferta/eliminar", function(req, res) {
-        if(req.body.eliminar.length > 0 && req.session.usuario){
+        if(req.body.eliminar.length > 0){
             var ofId = gestorBD.mongo.ObjectID(req.body.eliminar);
             gestorBD.eliminarOferta(ofId, function(id) {
                 if(id==null){
@@ -170,7 +186,7 @@ module.exports = function(app,swig,gestorBD) {
                     fecha : new Date(),
                     comprador : null,
                     eliminada : false
-                }
+                };
                 if(destacada){
                     if(req.session.dinero >= 20) {
                         var nuevoDinero = req.session.dinero - 20.0;

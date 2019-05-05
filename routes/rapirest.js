@@ -5,7 +5,7 @@ module.exports = function(app, gestorBD) {
             email: req.body.email,
             password: seguro,
             eliminado: false
-        }
+        };
         gestorBD.obtenerUsuarios(criterio,function(usuarios){
             if(usuarios ==null||usuarios.length ==0){
                 res.status(401);// Unauthorized
@@ -213,7 +213,6 @@ module.exports = function(app, gestorBD) {
             } else {
                 // SI.
                 // Creo un mensaje para esa conversacion
-                res.status(200);
                 for(var i=0; i<conv.length; i++){
                     if(conv[i].autor == res.usuario){
                         conv[i].autor = "Yo"
@@ -222,6 +221,7 @@ module.exports = function(app, gestorBD) {
                         conv[i].interesado = "Yo"
                     }
                 }
+                res.status(200);
                 res.send(JSON.stringify(conv));
             }
         });
@@ -243,7 +243,7 @@ module.exports = function(app, gestorBD) {
                 res.send(JSON.stringify(mostrar));
             }
         });
-    }
+    };
 }
 
 

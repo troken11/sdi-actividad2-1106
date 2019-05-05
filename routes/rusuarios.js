@@ -13,8 +13,9 @@ module.exports = function(app, swig, gestorBD) {
             res.redirect("/home");
         }
         else{
-            if(req.body.email.length > 0 & req.body.password.length > 0 & req.body.repassword.length > 0
-                & req.body.name.length > 0 & req.body.lastname.length > 0){
+            if(req.body.email != null && req.body.email.length > 0 && req.body.password != null && req.body.password.length > 0
+                && req.body.repassword != null && req.body.repassword.length > 0 && req.body.name != null && req.body.name.length > 0
+                && req.body.lastname != null && req.body.lastname.length > 0){
                 if(req.body.password === req.body.repassword){
                     var seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
                         .update(req.body.password).digest('hex');
@@ -26,23 +27,28 @@ module.exports = function(app, swig, gestorBD) {
                         type : "Normal",
                         money : 100.0,
                         eliminado: false
-                    }
+                    };
                     var criterio = {email : req.body.email};
                     gestorBD.obtenerUsuarios(criterio, function(usuarios) {
-                        if(usuarios.length == 0) {
-                            gestorBD.insertarUsuario(usuario,function (id) {
-                                if(id==null){
-                                    res.redirect("/registrarse?mensaje=Error al registrar usuario");
-                                }else{
-                                    req.session.usuario = req.body.email;
-                                    req.session.rol = "Normal";
-                                    req.session.dinero = 100.0;
-                                    res.redirect("/home?mensaje=Nuevo usuario registrado");
-                                }
-                            });
+                        if(usuarios != null){
+                            if(usuarios.length == 0) {
+                                gestorBD.insertarUsuario(usuario,function (id) {
+                                    if(id==null){
+                                        res.redirect("/registrarse?mensaje=Error al registrar usuario");
+                                    }else{
+                                        req.session.usuario = req.body.email;
+                                        req.session.rol = "Normal";
+                                        req.session.dinero = 100.0;
+                                        res.redirect("/home?mensaje=Nuevo usuario registrado");
+                                    }
+                                });
+                            }
+                            else
+                                res.redirect("/registrarse?mensaje=Error. Usuario ya existente");
                         }
-                        else
-                            res.redirect("/registrarse?mensaje=Error. Usuario ya existente");
+                        else{
+                            res.redirect("/registrarse?mensaje=Error.");
+                        }
                     });
                 }
                 else{
@@ -66,14 +72,13 @@ module.exports = function(app, swig, gestorBD) {
                     if(result == null){
                         res.redirect("/usuario/lista?mensaje=No se han podido eliminar los usuarios");
                     } else{
-                        res.redirect("/usuario/lista");
-                    }
-                });
-                gestorBD.eliminarOfertasDeUsuarios(emails, function(result) {
-                    if(result == null){
-                        res.redirect("/usuario/lista?mensaje=No se han podido eliminar las ofertas de usuarios");
-                    } else{
-                        res.redirect("/usuario/lista");
+                        gestorBD.eliminarOfertasDeUsuarios(emails, function(result) {
+                            if(result == null){
+                                res.redirect("/usuario/lista?mensaje=No se han podido eliminar las ofertas de usuarios");
+                            } else{
+                                res.redirect("/usuario/lista");
+                            }
+                        });
                     }
                 });
             }
@@ -97,30 +102,36 @@ module.exports = function(app, swig, gestorBD) {
             res.redirect("/home");
         }
         else{
-            var seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
-                .update(req.body.password).digest('hex');
-            var criterio = {
-                email : req.body.email,
-                password : seguro,
-            }
-            gestorBD.obtenerUsuarios(criterio, function(usuarios) {
-                if (usuarios == null || usuarios.length == 0) {
-                    req.session.usuario=null;
-                    req.session.rol=null;
-                    req.session.dinero=null;
-                    res.redirect("/identificarse" + "?mensaje=Email o password incorrecto"+ "&tipoMensaje=alert-danger ");
+            if(req.body.email != null && req.body.email.length > 0 && req.body.password != null
+                                                                                    && req.body.password.length > 0){
+                var seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
+                    .update(req.body.password).digest('hex');
+                var criterio = {
+                    email : req.body.email,
+                    password : seguro,
                 }
-                else {
-                    if (usuarios[0].eliminado) {
-                        res.redirect("/identificarse" + "?mensaje=Tu usuario ha sido eliminado" + "&tipoMensaje=alert-danger ");
-                    } else {
-                        req.session.usuario = usuarios[0].email;
-                        req.session.rol = usuarios[0].type;
-                        req.session.dinero = usuarios[0].money;
-                        res.redirect("/home");
+                gestorBD.obtenerUsuarios(criterio, function(usuarios) {
+                    if (usuarios == null || usuarios.length == 0) {
+                        req.session.usuario=null;
+                        req.session.rol=null;
+                        req.session.dinero=null;
+                        res.redirect("/identificarse" + "?mensaje=Email o password incorrecto"+ "&tipoMensaje=alert-danger ");
                     }
-                }
-            });
+                    else {
+                        if (usuarios[0].eliminado) {
+                            res.redirect("/identificarse" + "?mensaje=Tu usuario ha sido eliminado" + "&tipoMensaje=alert-danger ");
+                        } else {
+                            req.session.usuario = usuarios[0].email;
+                            req.session.rol = usuarios[0].type;
+                            req.session.dinero = usuarios[0].money;
+                            res.redirect("/home");
+                        }
+                    }
+                });
+            }
+            else{
+                res.redirect("/identificarse" + "?mensaje=Existen campos vacios" + "&tipoMensaje=alert-danger ");
+            }
         }
     });
     app.get('/desconectarse', function (req, res) {
@@ -145,6 +156,81 @@ module.exports = function(app, swig, gestorBD) {
             var infoNav = {"usuarios": usuarios};
             var respuesta = mostrarVista('views/busuariolista.html', infoNav, req.session);
             res.send(respuesta);
+        });
+    });
+
+    app.get("/reset", function(req, res) {
+        var seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
+            .update("pass").digest('hex');
+        var usuarios = [
+            {email : "primero@email.com", password : seguro, name : "Primera", lastname : "Cuenta",
+                type : "Normal", money : 100.0, eliminado: false},
+            {email : "borrar1@email.com", password : seguro, name : "Borrar", lastname : "1",
+                type : "Normal", money : 100.0, eliminado: false},
+            {email : "fantasma@email.com", password : seguro, name : "Cuenta", lastname : "Fantasma",
+                type : "Normal", money : 100.0, eliminado: false},
+            {email : "borrar2@email.com", password : seguro, name : "Borrar", lastname : "2",
+                type : "Normal", money : 100.0, eliminado: false},
+            {email : "lucia@email.com", password : seguro, name : "Lucia", lastname : "Menendez",
+                type : "Normal", money : 17.0, eliminado: false},
+            {email : "borrar3@email.com", password : seguro, name : "Borrar", lastname : "3",
+                type : "Normal", money : 100.0, eliminado: false},
+            {email : "marcos@email.com", password : seguro, name : "Marcos", lastname : "Gonzalez",
+                type : "Normal", money : 100.0, eliminado: false},
+            {email : "javier@email.com", password : seguro, name : "Javier", lastname : "Suarez",
+                type : "Normal", money : 100.0, eliminado: false}
+        ];
+        var ofertas = [
+            {autor: "marcos@email.com", titulo : "Mapamundi", detalles : "Muy detallado",
+                precio : 15.2, destacada : false, fecha : new Date(), comprador : null, eliminada : false},
+            {autor: "marcos@email.com", titulo : "Lampara", detalles : "Ahorra energia",
+                precio : 40.0, destacada : false, fecha : new Date(), comprador : null, eliminada : false},
+            {autor: "marcos@email.com", titulo : "Monedero", detalles : "Puedes guardar tarjetas",
+                precio : 100.0, destacada : false, fecha : new Date(), comprador : null, eliminada : false},
+            {autor: "fantasma@email.com", titulo : "Movil", detalles : "iPhone 7",
+                precio : 120.0, destacada : false, fecha : new Date(), comprador : null, eliminada : false},
+            {_id: gestorBD.mongo.ObjectID("5cceb9a1869db11a8cf4e7d5"),
+                autor: "fantasma@email.com", titulo : "Altavoces", detalles : "Muy buen sonido",
+                precio : 82.52, destacada : false, fecha : new Date(), comprador : null, eliminada : false},
+            {_id: gestorBD.mongo.ObjectID("5cceb9a1869db11a8cf4e7c4"),
+                autor: "lucia@email.com", titulo : "Zapatillas", detalles : "Sin estrenar",
+                precio : 20.62, destacada : false, fecha : new Date(), comprador : null, eliminada : false}
+        ];
+        var conversaciones = [
+            {_id: gestorBD.mongo.ObjectID("5cceb9a1869db11a8cf4e722"),idOferta: gestorBD.mongo.ObjectID("5cceb9a1869db11a8cf4e7c4"), autor: "lucia@email.com",
+                interesado: "javier@email.com"},
+            {_id: gestorBD.mongo.ObjectID("5cceb9a1869db11a8cf4e733"), idOferta: gestorBD.mongo.ObjectID("5cceb9a1869db11a8cf4e7d5"), autor: "lucia@email.com",
+                interesado: "javier@email.com"}
+        ];
+        var mensajes = [
+            {idConversacion: gestorBD.mongo.ObjectID("5cceb9a1869db11a8cf4e722"), autor: "javier@email.com",
+                receptor:"lucia@email.com", fecha: new Date(), texto: "Me gustan esas zapass", leido: false},
+            {idConversacion: gestorBD.mongo.ObjectID("5cceb9a1869db11a8cf4e733"), autor: "javier@email.com",
+                receptor:"lucia@email.com", fecha: new Date(), texto: "Suenan potentes?", leido: false}
+        ];
+        gestorBD.resetBD(function(n) {
+            if(n == null){
+                res.redirect("/");
+            }
+            else{
+                seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
+                    .update("admin").digest('hex');
+                gestorBD.insertarAdmin(seguro,function () {
+                    gestorBD.insertarUsuariosInicio(usuarios,function () {
+                        gestorBD.insertarOfertasInicio(ofertas,function () {
+                            gestorBD.insertarConversacionesInicio(conversaciones,function () {
+                                gestorBD.insertarMensajesInicio(mensajes,function () {
+                                    req.session.usuario = null;
+                                    req.session.rol = null;
+                                    req.session.dinero = null;
+                                    res.redirect("/");
+                                });
+                            });
+                        });
+                    });
+
+                });
+            }
         });
     });
 

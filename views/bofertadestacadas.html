@@ -1,0 +1,54 @@
+{% extends "home.html" %}
+
+{% block contenido_principal %}
+<div class="container">
+  <h2>Destacadas</h2>
+  <h3>Mis ofertas destacadas</h3>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>Titulo</th>
+        <th>Detalles</th>
+        <th>Precio</th>
+        <th>Tipo</th>
+        <th>Estado</th>
+        <th class="col-md-1"></th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for oferta in ofertas %}
+      <tr>
+        <td>{{ oferta.titulo }}</td>
+        <td>{{ oferta.detalles }}</td>
+        <td>{{ oferta.precio.toString() }} €</td>
+        <td>
+          {% if oferta.destacada %}
+            <span>Destacada</span>
+          {% elseif oferta.comprador == null%}
+            <form action="/oferta/destacar" method="post">
+              <button type="submit" name="destacada" value={{oferta._id.toString()}} class="btn-link">Normal</button>
+            </form>
+          {% else %}
+            <span>Normal</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if oferta.comprador != null %}
+            <span>Vendido</span>
+          {% else %}
+            <span>A la venta</span>
+          {% endif %}
+        </td>
+        <td>
+          <form action="/oferta/eliminar" method="post">
+            <button type="submit" id={{oferta.titulo}} name="eliminar" value={{oferta._id.toString()}} class="btn-link">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

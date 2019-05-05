@@ -5,13 +5,9 @@
 {% block infonav %}
 <li>
   <ul class="no-indent">
-    <li>
-      {{ email }}
-    </li>
+    <li id="my-email">{{ email }}</li>
     {% if tipo=="Normal" %}
-    <li>
-      {{ dinero.toFixed(2) }} €
-    </li>
+    <li id="my-money">{{ dinero.toFixed(2) }} €</li>
     {% endif %}
   </ul>
 </li>
@@ -29,24 +25,32 @@
   </ul>
 </li>
 {% else %}
-<li id="items-menu" class="dropdown">
-  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+<li class="dropdown">
+  <a id="items-menu" class="dropdown-toggle" data-toggle="dropdown" href="#">
     Gestión de ofertas <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" >
     <li>
-      <a href="/oferta/agregar">Agregar oferta</a>
+      <a href="/oferta/agregar" id="agregar-oferta">Agregar oferta</a>
     </li>
     <li>
-      <a href="/oferta/lista">Mis ofertas</a>
+      <a href="/oferta/lista" id="mis-ofertas">Mis ofertas</a>
     </li>
     <li>
-      <a href="/oferta/tienda">Tienda</a>
+      <a href="/oferta/tienda" id="tienda">Tienda</a>
     </li>
     <li>
-      <a href="/oferta/compradas">Mis compras</a>
+      <a href="/oferta/compradas" id="mis-compras">Mis compras</a>
+    </li>
+    <li>
+      <a href="/oferta/destacadas" id="mis-destacadas">Mis destacadas</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="/cliente.html?w=login">
+    Cliente
+  </a>
 </li>
 {% endif %}
 {% endblock %}
@@ -62,5 +66,5 @@
 
 
 {% block contenido_principal %}
-
+<h2>Bienvenido</h2>
 {% endblock %}

@@ -46,13 +46,13 @@
         $( "#tablaCuerpo" ).empty(); // Vaciar la tabla
         for (i = 0; i < ofertasAMostrar.length; i++) {
             $( "#tablaCuerpo" ).append(
-                "<tr>"+
+                "<tr class='oferta'>"+
                 "<td class='hidden'><span id='"+i+"-id'>"+ofertasAMostrar[i]._id+"</span></td>" +
                 "<td><span id='"+i+"-titulo'>"+ofertasAMostrar[i].titulo+"</span></td>" +
                 "<td>"+ofertasAMostrar[i].detalles+"</td>" +
                 "<td>"+ofertasAMostrar[i].precio+" €</td>" +
                 "<td><span id='"+i+"-autor'>"+ofertasAMostrar[i].autor+"</span></td>" +
-                "<td><button class='btn btn-primary' onclick='mostrarConversacion("+i+")'>Enviar mensaje</button>"+
+                "<td><button id='conversar' class='btn btn-primary' onclick='mostrarConversacion("+i+")'>Enviar mensaje</button>"+
                 "</tr>" );
             // Mucho cuidado con las comillas del eliminarCancion
             //la id tiene que ir entre comillas ' '
