@@ -169,8 +169,9 @@ app.use(express.static('public'));
 
 // Variables
 app.set('port', 8081);
-app.set('db',"mongodb://wallapopuser:entrega2@mywallapop-shard-00-00-y9hrl.mongodb.net:27017,mywallapop-shard-00-01-y9hrl.mongodb.net:27017,mywallapop-shard-00-02-y9hrl.mongodb.net:27017/test?ssl=true&replicaSet=mywallapop-shard-0&authSource=admin&retryWrites=true");
-app.set('clave','abcdefg');
+console.log('Introduce URL y clave para la base de datos MongoDB');
+//app.set('db',URL_DB);
+//app.set('clave',CLAVE_DB);
 app.set('crypto',crypto);
 //Rutas/controladores por lógica
 require("./routes/rusuarios.js")(app,swig,gestorBD, logger); // (app, param1, param2, etc.)
